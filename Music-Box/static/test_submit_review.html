@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                $('#submitReview > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'submit_review.php',
+                        type: 'post',
+                        data: $('#submitReview').serialize(),
+                        success: function(response) {
+                            $('#submitResult').html(response ? 'Success!' : 'Failed!');
+                        }
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="submitReview" method="post">
+            <label>user_id: </label>
+            <input type="text" name="user_id"/>
+            <label>track_spotify_id: </label>
+            <input type="text" name="track_spotify_id"/>
+            <label>review_text: </label>
+            <input type="text" name="review_text"/>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="submitResult"></p>
+    </body>
+</html>
