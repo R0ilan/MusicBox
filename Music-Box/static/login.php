@@ -11,7 +11,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid'] === true) {
     exit;
 }
 
-// Display error message if set
+// Display error message if we get one
 $errorMessage = "";
 if (isset($_SESSION['error'])) {
     $errorMessage = $_SESSION['error'];
