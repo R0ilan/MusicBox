@@ -3,7 +3,7 @@ session_start(); // Ensure session is started
 
 // Check if user is authenticated
 if (!isset($_SESSION['valid'])) {
-    header("Location: login.php"); // Redirect to login.php if index.php doesn't exist
+    header("Location: login.php"); // Redirect to login.php since index.php doesn't exist
     exit;
 }
 
