@@ -4,7 +4,10 @@
     // Default to false to indicate failure
     $php_return = "false";
 
-    if (!isset($_POST["user_id"]) or !isset($_POST["friend_user_id"]))
+    session_start();
+
+    // User ID of currently logged-in user is "id" session variable
+    if (!isset($_SESSION["id"]) or !isset($_POST["friend_user_id"]))
     {
         exit("false"); // Failed
     }
@@ -17,7 +20,7 @@
     }
 
     $stmt = mysqli_prepare($mysql, "INSERT INTO FRIENDS (user_id, friend_user_id) VALUES (?, ?);");
-    mysqli_stmt_bind_param($stmt, "ii", $_POST["user_id"], $_POST["friend_user_id"]);
+    mysqli_stmt_bind_param($stmt, "ii", $_SESSION["id"], $_POST["friend_user_id"]);
 
     if (mysqli_stmt_execute($stmt))
     {

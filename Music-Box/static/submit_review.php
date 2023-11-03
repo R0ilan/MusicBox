@@ -5,7 +5,10 @@
     // Default to false to indicate failure
     $php_return = "false";
 
-    if (!isset($_POST["user_id"]) or !isset($_POST["review_text"]) or !isset($_POST["track_spotify_id"]))
+    session_start();
+
+    // User ID of currently logged-in user is "id" session variable
+    if (!isset($_SESSION["id"]) or !isset($_POST["review_text"]) or !isset($_POST["track_spotify_id"]))
     {
         exit("false"); // Failed
     }
@@ -20,14 +23,14 @@
     // Insert review into database
     $stmt = mysqli_prepare($mysql,
         "INSERT INTO REVIEWS (user_id, track_spotify_id, review_text, review_time) VALUES (?, ?, ?, Now());");
-    mysqli_stmt_bind_param($stmt, "iss", $_POST["user_id"], $_POST["track_spotify_id"], $_POST["review_text"]);
+    mysqli_stmt_bind_param($stmt, "iss", $_SESSION["id"], $_POST["track_spotify_id"], $_POST["review_text"]);
 
     if (mysqli_stmt_execute($stmt))
     {
         // Check if reviewer is a professional reviewer. If so, artists will have to be notified.
         mysqli_stmt_free_result($stmt);
         $stmt = mysqli_prepare($mysql, "SELECT role FROM USERS WHERE id=?");
-        mysqli_stmt_bind_param($stmt, "i", $_POST["user_id"]);
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION["id"]);
         mysqli_stmt_bind_result($stmt, $result_role);
 
         if (mysqli_stmt_execute($stmt))
