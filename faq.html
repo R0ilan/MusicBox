@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <body style="background-color:black;">
-
-    <header>
-        <h2>Music Box</h2>
-    </header>
-
-
-
-
-<style>
-    h2 {
-    color:white;
-    text-align: center
-    }
-</style>
+<head>
+    <title>Music Box</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  </head>
+  
+  <body style="background-color:black;">
+      <div class="topnav" id="myTopnav">
+          <a href="index.html" class="active">MUSIC BOX</a>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="">Music</a>
+          <a href="faq.html">FAQ</a>
+          <a href="">Login/Signup</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+          </a>
+      </div>
+  
+      <script>
+          function myFunction() {
+              var x = document.getElementById("myTopnav");
+              if (x.className === "topnav") {
+              x.className += " responsive";
+              } else {
+              x.className = "topnav";
+              }
+          }
+      </script>  
+  
+  </br >
+ 
+    <div class="faq">
+        <h1>Frequently Asked Question</h1>  
+    </br > 
+        <div class="row">
+           <div class="explore">
+                <h2>What is Musix Box?</h2>
+                <p>Music Box is a social platform where everyone can connect over their love
+                    of music, as is also stated on our About page. Users can evaluate and rate
+                    music from accross the globe and share their thoughts. In order to gather
+                    and arrange music, users can create their own playlist. 
+                </p>
+            </br >
+                <h2>Is music playable on this website?</h2>
+                <p>No, we do not offer the ability to steam music, but we have integreate Spotify 
+                    and plan to add more platforms in the future.
+                </p>
+            </br >
+                <h2>Is it necessary for me to register in order to utilize Music Box?</h2>
+                <p>No, while you don't need an account to browse the entire Music Box, you will need
+                    one to rate, review, and create your playlists.</p>
+            </br >               
+                <h2>Does this service have a fee attached to it?</h2>
+                <p>No, the application is free to use for everyone. </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
