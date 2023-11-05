@@ -315,10 +315,8 @@ function getGreeting(){
 
   <div class="row g-5">
     <div class="col-md-8">
-      <h3 class="pb-4 mb-4 fst-italic border-bottom">
-        Feed
-      </h3>
-
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">Feed</h3>
+      <h3 class="pb-4 mb-4 fst-italic border-bottom"><?php echo getGreeting(); ?>, <?php echo $_SESSION['username']; ?>!</h3>
       <article class="blog-post">
         <h4 class="blog-post-meta">Recent Album Review</h4>
         <p class="blog-post-meta">Album Title Posted By <a href="#">Sarah Lewis</a></p>
