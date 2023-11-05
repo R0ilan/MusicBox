@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                $('#getReviewsByUser > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'get_reviews_by_user.php',
+                        type: 'post',
+                        data: $('#getReviewsByUser').serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#getReviewsByUserResult').html(JSON.stringify(response));
+                        },
+                        error: () => { console.log('failed'); }
+                    })
+                });
+
+                $('#getReviewsByTrack > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'get_reviews_by_track.php',
+                        type: 'post',
+                        data: $('#getReviewsByTrack').serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#getReviewsByTrackResult').html(JSON.stringify(response));
+                        },
+                        error: () => { console.log('failed'); }
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="getReviewsByUser" method="post">
+            <button type="submit">Show Reviews by User</button>
+        </form>
+        <p id="getReviewsByUserResult"></p>
+        <form id="getReviewsByTrack" method="post">
+            <input type="text" name="track_spotify_id"/>
+            <button type="submit">Show Reviews by Track</button>
+        </form>
+        <p id="getReviewsByTrackResult"></p>
+    </body>
+</html>
