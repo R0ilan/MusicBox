@@ -1,3 +1,57 @@
+<?php
+session_start(); // Ensure session is started
+
+// Check if user is authenticated
+if (!isset($_SESSION['valid'])) {
+    header("Location: login.php"); // Redirect to login.php since index.php doesn't exist
+    exit;
+}
+
+include "dbconfig.php"; // Include database configuration
+$con = mysqli_connect($server, $login, $password, $dbname); // Establish a database connection
+
+// Check if ID is set in the session, redirect if not
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// Fetch user details based on the user's ID
+$id = $_SESSION['id'];
+$query = mysqli_query($con, "SELECT * FROM USERS WHERE id = $id");
+
+// Initialize variables
+$res_Uname = "";
+$res_email = "";
+$res_role = "";
+$userFound = false;
+
+while ($result = mysqli_fetch_assoc($query)) {
+    $res_Uname = $result['username'];
+    $res_email = $result['email'];
+    $res_role = $result['role'];
+    $userFound = true; // Mark that user is found
+}
+
+// If user is not found, redirect to login with an error
+if (!$userFound) {
+    $_SESSION['error'] = "User not found. Please login again.";
+    header("Location: login.php");
+    exit;
+}
+function getGreeting(){
+    $hour = date('H');
+    if($hour < 12){
+        return "Good Morning";
+    } elseif($hour < 18){
+        return "Good Afternoon";
+    } else {
+        return "Good Evening";
+    }
+}
+?>
+
+
 <!doctype html>
 
   <head><script src="../assets/js/color-modes.js"></script>
@@ -205,8 +259,8 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-6 px-0">
-      <h1 id = "user" class="display fst-italic">USER</h1>
-      <p class="lead my-3">Artist</p>
+      <h1 id = "user" class="display fst-italic">Hello, <b><?php echo $res_Uname; ?></b>, Welcome!</h1>
+      <p class="lead my-3">Profile Type: <b><?php echo $res_role; ?></b></p>
     </div>
   </div>
 
@@ -287,6 +341,10 @@
           <h4 class="fst-italic">Settings</h4>
           <p class="mb-0">Change Profie Type</p>
           <p class="mb-0">Change Favorites</p>
+          <p class="mb-0"><?php
+               echo "<a href='edit.php?Id=$id'>Change Profile</a>";
+          ?></p>
+          <p class="mb-0"><a href="logout.php"> <button class="btn">Logout</button></a> </p>
         </div>
 
         <div>
