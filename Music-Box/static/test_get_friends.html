@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                $('#getFriends > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'get_friends.php',
+                        type: 'post',
+                        data: $('#getFriends').serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#getFriendsResult').html(JSON.stringify(response));
+                        },
+                        error: function() {
+                            $('#getFriendsResult').html('Error occurred.');
+                        }
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="getFriends" method="post">
+            <button type="submit">Show Friends</button>
+        </form>
+        <p id="getFriendsResult"></p>
+    </body>
+</html>

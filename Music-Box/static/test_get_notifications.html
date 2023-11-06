@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                $('#getNotifications > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'get_notifications.php',
+                        type: 'post',
+                        data: $('#getNotifications').serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#getNotificationsResult').html(JSON.stringify(response));
+                        },
+                        error: () => { console.log('failed'); }
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="getNotifications" method="post">
+            <button type="submit">Show Notifications</button>
+        </form>
+        <p id="getNotificationsResult"></p>
+    </body>
+</html>
