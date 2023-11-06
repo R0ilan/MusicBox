@@ -248,10 +248,11 @@ function getGreeting(){
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
       <a class="nav-item nav-link link-body-emphasis active" href="#">PROFILE</a>
-      <a class="nav-item nav-link link-body-emphasis" href="#">HOME</a>
+      <a class="nav-item nav-link link-body-emphasis" href="home.html">HOME</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-      <a class="nav-item nav-link link-body-emphasis" href="#">FAQ</a>
+      <a class="nav-item nav-link link-body-emphasis" href="faq.html">FAQ</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">NOTIFS</a>
+      <a class="nav-item nav-link link-body-emphasis" href="about.html">ABOUT</a>
    
     </nav>
   </div>
