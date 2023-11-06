@@ -58,30 +58,30 @@
             } else {
             ?>
 
-            <header>Please Sign up</header>
+            <header>Sign Up</header>
             <form action="" method="post">
                 <div class="field input">
-                    <label for="username">Username: </label>
+                    <label for="username">Username</label>
                     <input type="text" name="username" id="username" autocomplete="off" required>
                 </div>
                 <div class="field input">
-                    <label for="password">Password: </label>
+                    <label for="password">Password </label>
                     <input type="password" name="password" id="password" autocomplete="off" required>
                 </div>
                 <div class="field input">
-                    <label for="fname">First Name: </label>
+                    <label for="fname">First Name</label>
                     <input type="text" name="fname" id="fname" autocomplete="off" required>
                 </div>
                 <div class="field input">
-                    <label for="lname">Last Name: </label>
+                    <label for="lname">Last Name </label>
                     <input type="text" name="lname" id="lname" autocomplete="off" required>
                 </div>
                 <div class="field input">
-                    <label for="email">Email: </label>
+                    <label for="email">Email </label>
                     <input type="email" name="email" id="email" autocomplete="off" required>
                 </div>
                                 <div class="field">
-                    <label for="role">Role:</label>
+                    <label for="role">Pick your role</label>
                     <select name="role" id="role" required>
                        <option value="" disabled selected>Please select one of the following options</option>
                         <option value="Avid Listener">Avid Listener</option>
@@ -97,12 +97,13 @@
                     <input type="submit" name="submit" class="btn" value="Register" required>
                 </div>
                 <div class="links">
-                    Already a member? <a href="login.php">Login Now!</a>
+                    Already a member? <a href="login.php">Login</a>
                 </div>
             </form>
-
             <?php } ?>
-
+            <div class="returnhome">
+                Return to <a href="index.html">Home</a>
+            </div>
         </div>
     </div>
 </body>

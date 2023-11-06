@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
     <title>MusicBox: Login</title>
 </head>
-<body>
+<body style="background-color:black;">
     <div class="container">
         <div class="box form-box">
             <?php if ($errorMessage): ?>
@@ -78,21 +78,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p><?php echo $errorMessage; ?></p>
                 </div>
             <?php endif; ?>
-            <header>Please Login</header>
+            <header>Login</header>
             <form action="login.php" method="post">
                 <div class="field input">
-                    <label for="username">Username:</label>
+                    <label for="username">Username</label>
                     <input type="text" name="username" id="username" required>
                 </div>
                 <div class="field input">
-                    <label for="password">Password:</label>
+                    <label for="password">Password</label>
                     <input type="password" name="password" id="password" required>
                 </div>
+                </br >
                 <div class="field">
                     <input type="submit" name="submit" class="btn" value="Login" required>
                 </div>
                 <div class="links">
-                    Don't have an account? <a href="signup.php">Register Now!</a>
+                    Don't have an account? <a href="signup.php">Register Here</a>
                 </div>
             </form>
         </div>

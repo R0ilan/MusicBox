@@ -51,6 +51,44 @@ function getGreeting(){
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Music Box</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body style="background-color:black;">
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="active">MUSIC BOX</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="">Music</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.php">Login/Signup</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+            x.className += " responsive";
+            } else {
+            x.className = "topnav";
+            }
+        }
+    </script>  
+
+</body>
+</html>
 
 <!DOCTYPE html>
 <html lang="en">

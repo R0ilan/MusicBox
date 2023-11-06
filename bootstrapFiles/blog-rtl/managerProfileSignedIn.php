@@ -1,3 +1,56 @@
+<?php
+session_start(); // Ensure session is started
+
+// Check if user is authenticated
+if (!isset($_SESSION['valid'])) {
+    header("Location: login.php"); // Redirect to login.php since index.php doesn't exist
+    exit;
+}
+
+include "dbconfig.php"; // Include database configuration
+$con = mysqli_connect($server, $login, $password, $dbname); // Establish a database connection
+
+// Check if ID is set in the session, redirect if not
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// Fetch user details based on the user's ID
+$id = $_SESSION['id'];
+$query = mysqli_query($con, "SELECT * FROM USERS WHERE id = $id");
+
+// Initialize variables
+$res_Uname = "";
+$res_email = "";
+$res_role = "";
+$userFound = false;
+
+while ($result = mysqli_fetch_assoc($query)) {
+    $res_Uname = $result['username'];
+    $res_email = $result['email'];
+    $res_role = $result['role'];
+    $userFound = true; // Mark that user is found
+}
+
+// If user is not found, redirect to login with an error
+if (!$userFound) {
+    $_SESSION['error'] = "User not found. Please login again.";
+    header("Location: login.php");
+    exit;
+}
+function getGreeting(){
+    $hour = date('H');
+    if($hour < 12){
+        return "Good Morning";
+    } elseif($hour < 18){
+        return "Good Afternoon";
+    } else {
+        return "Good Evening";
+    }
+}
+?>
+
 <!doctype html>
 
   <head><script src="../assets/js/color-modes.js"></script>
@@ -193,11 +246,11 @@
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
       <a class="nav-item nav-link link-body-emphasis active" href="#">PROFILE</a>
-      <a class="nav-item nav-link link-body-emphasis" href="#">HOME</a>
+      <a class="nav-item nav-link link-body-emphasis" href="home.html">HOME</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-      <a class="nav-item nav-link link-body-emphasis" href="#">FAQ</a>
- 
-   
+      <a class="nav-item nav-link link-body-emphasis" href="faq.html">FAQ</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">NOTIFS</a>
+      <a class="nav-item nav-link link-body-emphasis" href="about.html">ABOUT</a>
     </nav>
   </div>
 </div>
@@ -205,8 +258,8 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-6 px-0">
-      <h1 id = "user" class="display fst-italic">USER</h1>
-      <p class="lead my-3">Listener</p>
+      <h1 id = "user" class="display fst-italic">Hello <b><?php echo $res_Uname; ?></b>, Welcome!</h1>
+      <p class="lead my-3">Profile Type: <b><?php echo $res_role; ?></b></p>
     </div>
   </div>
 
@@ -261,16 +314,20 @@
 
   <div class="row g-5">
     <div class="col-md-8">
-      <h3 class="pb-4 mb-4 fst-italic border-bottom">
-        Feed
-      </h3>
+      <h3 class="pb-4 mb-4 fst-italic border-bottom"><?php echo getGreeting(); ?>, <?php echo $_SESSION['username']; ?>!</h3>
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">Feed</h3>
 
       <article class="blog-post">
-        
+        <h4 class="blog-post-meta">Recent Album Review</h4>
+        <p class="blog-post-meta">Album Title Posted By <a href="#">Sarah Lewis</a></p>
+        <p class="blog-post-meta">For </p>
+        <p>Loved this!!!!!</p>
       </article>
-
+        <br>
       <article class="blog-post">
-       
+        <h4 class="blog-post-meta">Recent Inquiry</h4>
+        <p class="blog-post-meta">New Arist Looking For Management</p>
+        <p class="blog-post-meta"><a href="#">Ian Foster</a></p>
       </article>
 
       <article class="blog-post">
@@ -285,16 +342,17 @@
           <h4 class="fst-italic">Settings</h4>
           <p class="mb-0">Change Profie Type</p>
           <p class="mb-0">Change Favorites</p>
+          <p class="mb-0"><a href="logout.php"> <button class="btn">Logout</button></a></p>
         </div>
 
         <div>
-          <h4 class="fst-italic">Friends</h4>
+          <h4 class="fst-italic">Your Artists <a href="#" style="float:right">See All</a></h4> 
           <ul class="list-unstyled">
             <li>
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
@@ -302,7 +360,7 @@
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
@@ -310,7 +368,7 @@
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
