@@ -157,6 +157,58 @@ function getGreeting(){
       }
     </style>
 
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+          $.ajax({
+            url: 'get_friends.php',
+            type: 'post',
+            data: '',
+            dataType: 'json',
+            success: function(response) {
+              for (friend of response['friends']) {
+                let li = document.createElement('li');
+                let a = document.createElement('a');
+                a.setAttribute('class', 'd-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top');
+                a.setAttribute('href', '#');
+                li.appendChild(a);
+
+                let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('class', 'bd-placeholder-img');
+                svg.setAttribute('width', '100%');
+                svg.setAttribute('height', '96');
+                svg.setAttribute('aria-hidden', 'true');
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+                svg.setAttribute('focusable', 'false');
+                a.appendChild(svg);
+
+                let rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('width', '100%');
+                rect.setAttribute('height', '100%');
+                rect.setAttribute('fill', '#777');
+                svg.appendChild(rect);
+
+                let div = document.createElement('div');
+                div.setAttribute('class', 'col-lg-8');
+                a.appendChild(div);
+
+                let h6 = document.createElement('h6');
+                h6.setAttribute('class', 'mb-0');
+                h6.textContent = `${friend['name']} Profile`;
+                div.appendChild(h6);
+
+                // TODO: Make profile link functional.
+                
+                $('#friendList').append(li);
+              }
+            },
+            error: () => {
+              console.log('get_friends.php failed.');
+            }
+          })
+        });
+    </script>
     
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -348,37 +400,10 @@ function getGreeting(){
 
         <div>
           <h4 class="fst-italic">Friends</h4>
-          <ul class="list-unstyled">
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
-                </div>
-              </a>
-            </li>
+          <ul class="list-unstyled" id="friendList">
+            <!--Filled dynamically using script-->
           </ul>
-        </div>
-
-    
-
-        
+        </div>    
       </div>
     </div>
   </div>
