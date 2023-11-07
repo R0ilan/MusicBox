@@ -51,25 +51,17 @@ function getGreeting(){
 }
 ?>
 
-
-
 <!doctype html>
 
-  <head><script src="../assets/js/color-modes.js"></script>
-
+  <head><script src="color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
     <title>Music Box Bootstrap</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
-
-    
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
     <link href="../assets/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 
     <style>
@@ -253,7 +245,6 @@ function getGreeting(){
       <a class="nav-item nav-link link-body-emphasis" href="faq.html">FAQ</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">NOTIFS</a>
       <a class="nav-item nav-link link-body-emphasis" href="about.html">ABOUT</a>
-   
     </nav>
   </div>
 </div>
@@ -321,11 +312,16 @@ function getGreeting(){
       <h3 class="pb-4 mb-4 fst-italic border-bottom">Feed</h3>
 
       <article class="blog-post">
-        
+        <h4 class="blog-post-meta">Recent Album Review</h4>
+        <p class="blog-post-meta">Album Title Posted By <a href="#">Sarah Lewis</a></p>
+        <p class="blog-post-meta">For </p>
+        <p>Loved this!!!!!</p>
       </article>
-
+        <br>
       <article class="blog-post">
-       
+        <h4 class="blog-post-meta">Recent Inquiry</h4>
+        <p class="blog-post-meta">New Arist Looking For Management</p>
+        <p class="blog-post-meta"><a href="#">Ian Foster</a></p>
       </article>
 
       <article class="blog-post">
@@ -338,22 +334,19 @@ function getGreeting(){
       <div class="position-sticky" style="top: 2rem;">
         <div class="p-4 mb-3 bg-body-tertiary rounded">
           <h4 class="fst-italic">Settings</h4>
-          <p class="mb-0"><?php
-                echo "<a href='edit.php?Id=$id'>Change Profile</a>";
-                ?>
-          </p>
+          <p class="mb-0">Change Profie Type</p>
           <p class="mb-0">Change Favorites</p>
           <p class="mb-0"><a href="logout.php"> <button class="btn">Logout</button></a></p>
         </div>
 
         <div>
-          <h4 class="fst-italic">Friends</h4>
+          <h4 class="fst-italic">Your Artists <a href="#" style="float:right">See All</a></h4> 
           <ul class="list-unstyled">
             <li>
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
@@ -361,7 +354,7 @@ function getGreeting(){
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
@@ -369,20 +362,15 @@ function getGreeting(){
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="col-lg-8">
-                  <h6 class="mb-0">Friend Profile</h6>
+                  <h6 class="mb-0">Artist Name</h6>
                 </div>
               </a>
             </li>
           </ul>
-        </div>
-
-    
-
-        
+        </div>       
       </div>
     </div>
   </div>
-
 </main>
 
 

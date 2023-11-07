@@ -7,7 +7,7 @@ session_start();
 
 // Redirect to home if user is already logged in
 if (isset($_SESSION['valid']) && $_SESSION['valid'] === true) {
-    header("Location: home.php");
+    header("Location: genProfileSignedIn.php");
     exit;
 }
 
