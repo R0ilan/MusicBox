@@ -420,16 +420,7 @@ function getGreeting(){
     </div>
 
     <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem;">
-        <div class="p-4 mb-3 bg-body-tertiary rounded">
-          <h4 class="fst-italic">Settings</h4>
-          <p class="mb-0"><?php
-                echo "<a href='edit.php?Id=$id'>Change Profile</a>";
-                ?>
-          </p>
-          <p class="mb-0">Change Favorites</p>
-          <p class="mb-0"><a href="logout.php"> <button class="btn">Logout</button></a></p>
-        </div>
+      <div class="position-sticky" style="top: 2rem;"></div>
 
         <div>
           <h4 class="fst-italic">Friends</h4>
