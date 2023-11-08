@@ -231,7 +231,40 @@ function getGreeting(){
 <div class="container">
   <header class="border-bottom lh-1 py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1"></div>
+      <div class="col-4 pt-1">
+          <div class="dropdown">
+          <button class="btn dropdown-toggle d-flex align-items-center"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown">
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="profImage.jpeg" width="40px" height="40px"></svg>
+            <span class="visually-hidden">Settings</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Sign Out
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Change Profile
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Change Favorites
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="col-4 text-center">
         <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
       </div>
