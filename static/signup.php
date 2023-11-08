@@ -81,7 +81,7 @@
                     <input type="email" name="email" id="email" autocomplete="off" required>
                 </div>
                                 <div class="field">
-                    <label for="role">Pick your role</label>
+                    <label for="role">Choose your role</label>
                     <select name="role" id="role" required>
                        <option value="" disabled selected>Please select one of the following options</option>
                         <option value="Avid Listener">Avid Listener</option>
