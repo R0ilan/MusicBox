@@ -230,7 +230,40 @@ function getGreeting(){
 <div class="container">
   <header class="border-bottom lh-1 py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1"></div>
+      <div class="col-4 pt-1">
+          <div class="dropdown">
+          <button class="btn dropdown-toggle d-flex align-items-center"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown">
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="profImage.jpeg" width="40px" height="40px"></svg>
+            <span class="visually-hidden">Settings</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Sign Out
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Change Profile
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Change Favorites
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="col-4 text-center">
         <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
       </div>
@@ -337,13 +370,7 @@ function getGreeting(){
     </div>
 
     <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem;">
-        <div class="p-4 mb-3 bg-body-tertiary rounded">
-          <h4 class="fst-italic">Settings</h4>
-          <p class="mb-0">Change Profie Type</p>
-          <p class="mb-0">Change Favorites</p>
-          <p class="mb-0"><a href="logout.php"> <button class="btn">Logout</button></a></p>
-        </div>
+      <div class="position-sticky" style="top: 2rem;"></div>
 
         <div>
           <h4 class="fst-italic">Your Artists <a href="#" style="float:right">See All</a></h4> 
