@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                $('#getRecentlyPlayedTracks > button').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: 'get_recently_played_tracks.php',
+                        type: 'post',
+                        data: $('#getRecentlyPlayedTracks').serialize(),
+                        success: function(response) {
+                            $('#getRecentlyPlayedTracksResult').html(JSON.stringify(response));
+                        },
+                        error: function() {
+                            $('#getRecentlyPlayedTracksResult').html('Error occurred.');
+                        }
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="getRecentlyPlayedTracks" method="post">
+            <label>number_of_tracks: </label>
+            <input type="number" name="number_of_tracks"/>
+            <button type="submit">Get Recently Played Tracks</button>
+        </form>
+        <p id="getRecentlyPlayedTracksResult"></p>
+    </body>
+</html>
