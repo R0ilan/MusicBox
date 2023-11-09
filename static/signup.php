@@ -86,11 +86,9 @@
                        <option value="" disabled selected>Please select one of the following options</option>
                         <option value="Avid Listener">Avid Listener</option>
                         <option value="Indie Artist">Indie Artist</option>
-                        <option value="Independent Record Label">Independent Record Label</option>
                         <option value="Music Educator">Music Educator</option>
                         <option value="Music Student">Music Student</option>
                         <option value="Professional Reviewer">Professional Reviewer</option>
-                        <option value="Record Label Manager">Record Label Manager</option>
                     </select>
                 </div>
                 <div class="field">
@@ -101,8 +99,8 @@
                 </div>
             </form>
             <?php } ?>
-            <div class="returnhome">
-                Return to <a href="index.html">Home</a>
+            <div class="navigate">
+                    <a href="home.html">Home</a>
             </div>
         </div>
     </div>

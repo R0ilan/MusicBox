@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['id'] = $row['id'];
             $_SESSION['valid'] = true; // Set the session valid flag
 
-            header("Location: home.php");
+            header("Location: genProfileSignedIn.php");
             exit;
         } else {
             $errorMessage = "Wrong Username or Password";
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
     <title>MusicBox: Login</title>
 </head>
-<body style="background-color:black;">
+<body>
     <div class="container">
         <div class="box form-box">
             <?php if ($errorMessage): ?>
@@ -94,6 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="links">
                     Don't have an account? <a href="signup.php">Register Here</a>
+                </div>
+                <div class="navigate">
+                    <a href="home.html">Home</a>
                 </div>
             </form>
         </div>

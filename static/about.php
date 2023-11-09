@@ -51,9 +51,8 @@ function getGreeting(){
 }
 ?>
 
-
-<!doctype html>
-
+<!DOCTYPE html>
+<html lang="en"> 
   <head><script src="js/color-modes.js"></script>
 
     <meta charset="utf-8">
@@ -62,146 +61,10 @@ function getGreeting(){
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
     <title>Music Box</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
-
-    
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
     <link href="css/bootstrap.rtl.min.css" rel="stylesheet">
-
-    <style>
-      #fav{
-        float: left;
-      }
-      #user{
-        float: center;
-      }
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-    </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        jQuery(document).ready(function($) {
-          $.ajax({
-            url: 'get_recently_played_tracks.php',
-            type: 'post',
-            data: 'number_of_tracks=4', // Limit to top 4 tracks
-            dataType: 'json',
-            success: function(response) {
-              for (recently_played_track of response['recently_played_tracks']) {
-                // Get album image URL
-                let imgSrc = ''
-                let imgWidth = 100
-                let imgHeight = 150
-                if (recently_played_track['track']['album']['images'].length > 0) {
-                  imgSrc = recently_played_track['track']['album']['images'][0]['url'];
-                  imgWidth = recently_played_track['track']['album']['images'][0]['width'];
-                  imgHeight = recently_played_track['track']['album']['images'][0]['height'];
-
-                  // Rescale to have width of 100
-                  imgHeight = imgHeight * 100 / imgWidth;
-                  imgWidth = 100;
-                }
-
-                let div = document.createElement('div');
-                div.setAttribute('class', 'col');
-
-                let img = document.createElement('img');
-                img.setAttribute('src', imgSrc);
-                img.setAttribute('width', `${imgWidth}px`);
-                img.setAttribute('height', `${imgHeight}px`);
-                div.appendChild(img);
-
-                $('#recentlyPlayedTracks').append(div);
-              }
-            },
-            error: () => {
-              console.log('get_recently_played_tracks.php failed.');
-            }
-          })
-        });
-    </script>
-
-    <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
     <link href="css/blog.rtl.css" rel="stylesheet">
   </head>
   <body>
@@ -279,31 +142,42 @@ function getGreeting(){
                   type="button"
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
-                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="profImage.jpeg" width="40px" height="40px"></svg>
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"></svg>
+                    <img src="images/profImage.jpeg" width="40px" height="40px">
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
             <li>
-              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+              <a href="../static/genProfileSignedIn.php"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
                 <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
-                Sign Out
+                My Profile
                 <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
-              </button>
+              </button></a>
+            </li>
+            <li>
+              <a href="#"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Notifications
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button></a>
             </li>
             <li>
               <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
                 <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
-                Change Profile
+                <?php
+                echo "<a href='edit.php?Id=$id'>Change Profile</a>";
+                ?>               
                 <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
               </button>
             </li>
             <li>
-              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+              <a href="../static/logout.php"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
                 <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
-                Change Favorites
+                Log Out
                 <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
-              </button>
+              </button> </a>
             </li>
+
           </ul>
         </div>
       </div>
@@ -321,128 +195,162 @@ function getGreeting(){
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
-      <a class="nav-item nav-link link-body-emphasis active" href="artistSignedIn.php">PROFILE</a>
-      <a class="nav-item nav-link link-body-emphasis" href="home.html">HOME</a>
+      <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-      <a class="nav-item nav-link link-body-emphasis" href="faq.html">FAQ</a>
-      <a class="nav-item nav-link link-body-emphasis" href="get_notifications.php">NOTIFS</a>
-      <a class="nav-item nav-link link-body-emphasis" href="about.html">ABOUT</a>
-      <a class="nav-item nav-link link-body-emphasis" href="logout.php">SIGNOUT</a>
-   
+      <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
+      <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a> 
     </nav>
   </div>
 </div>
 
 <main class="container">
-  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-    <div class="col-lg-6 px-0">
-      <h1 id = "user" class="display fst-italic">Hello, <b><?php echo $res_Uname; ?></b>, Welcome!</h1>
-      <p class="lead my-3">Profile Type: <b><?php echo $res_role; ?></b></p>
-    </div>
-  </div>
-
-  <div class="row mb-2">
-    <div id="RLT" class="col-md-6 border rounded">
+      <div class="row mb-2 border rounded">
         <div class="col-auto d-none d-lg-block">
           <div id="content" class="bodySec">
             <div class="container text-center">
-              <div id="recentlyPlayedTracks" class="row align-items-center">
-                <!--Filled dynamically using script-->
+              <div class="aboutus">
+                <h1>About Us</h1> 
+              <div class="row">
+                <div class="col">
+                    <h3>Explore what other people think</h3>
+                    <p>A growing library of evaluations for music from around the globe may be found on MusicBox. Simply browsing albums and reading reviews on the website to find the voices and viewpoints you appreciate is a terrific way to discover new music and new friends.</p>
+                </div>
+                <div class="col">
+                    <h3>Gather music using lists</h3>
+                    <p>On MusicBox, users can also make lists and top lists. This is the ideal way to showcase your hidden gems, rank an artist's discography, or share a selection of your favorite albums.</p>
+                </div>
+                <div class="col">
+                    <h3>Save songs for later listening</h3>
+                    <p>You can keep track of all the songs you want to listen to but haven't yet with the help of the Listen Later function. You can easily maintain the list up to date when new music is published by adding, removing, or sorting it to find the music you want to discover for the day quickly.</p>
+                </div>
+                <div class="col">
+                    <h3>Review and Rank your top albums</h3>
+                    <p>You can express your musical preferences through ratings and reviews on MusicBox. Start your account by looking for some of your favorite songs so you can rate them. You may also look through our Most Popular Albums for ideas on what to review.</p>
+                </div>
               </div>
             </div>
-            <br>
-            <p class="descLeft">Recently Listened To</p>
-          </div>
-        </div>
-      
-    </div>
-    <div id="fav" class="col-md-6 border rounded">
-        <div class="col-auto d-none d-lg-block">
-          <div class="container text-center">
-            <div class="row align-items-center">
-              <div class="col">
-                <img src="" width="100px" height="150px">
-              </div>
-              <div class="col">
-                <img src="" width="100px" height="150px">
-              </div>
-              <div class="col">
-                <img src="" width="100px" height="150px">
-              </div>
-              <div class="col">
-                <img src="" width="100px" height="150px">
-              </div>
             </div>
           </div>
-          <br>
-          <p id="fav">Favorites</p>
-        </div>
+        </div>   
       </div>
-
-  <div class="row g-5">
-    <div class="col-md-8">
-      <h3 class="pb-4 mb-4 fst-italic border-bottom">Feed</h3>
-      <h3 class="pb-4 mb-4 fst-italic border-bottom"><?php echo getGreeting(); ?>, <?php echo $_SESSION['username']; ?>!</h3>
-      <article class="blog-post">
-        <h4 class="blog-post-meta">Recent Album Review</h4>
-        <p class="blog-post-meta">Album Title Posted By <a href="#">Sarah Lewis</a></p>
-        <p>Loved this!!!!!</p>
-      </article>
-
-      <article class="blog-post">
-       
-      </article>
-
-      <article class="blog-post">
-        
-      </article>
-
-    </div>
-
-    <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem;"></div>
-
-        <div>
-          <h4 class="fst-italic">Top Listeners</h4>
-          <ul class="list-unstyled">
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">#1 Listener</h6>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">#2 Listener</h6>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">#3 Listener</h6>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-    
-
-        
-      </div>
-    </div>
-  </div>
-
-</main>
-
+    </main>
+  </body>
+</html>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 
-    </body>
-</html>
+
+<style>
+  .col{
+      border-width: 2px;
+      border-style: solid;
+      border-color: #181964;
+      border-radius: 25px;
+      margin: 10px;
+      padding: 10px;
+  }
+    #fav{
+      float: left;
+    }
+    #user{
+      float: center;
+    }
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .btn-bd-primary {
+      --bd-violet-bg: #202976;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #202976;
+      --bs-btn-hover-border-color: #202976;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #202976;
+      --bs-btn-active-border-color: #202976;
+    }
+
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
+
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+
+    .aboutus {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.aboutus h1 {
+    text-align: center;
+    font-size: 35px;
+}
+
+.aboutus p {
+  font-size: 18px;
+  font-family:'Times New Roman', Times, serif;
+}
+
+.aboutus h3 {
+    font-size: 23px;
+    font-family:'Times New Roman', Times, serif;
+}
+</style>

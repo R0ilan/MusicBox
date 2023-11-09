@@ -1,6 +1,60 @@
+<?php
+session_start(); // Ensure session is started
+
+// Check if user is authenticated
+if (!isset($_SESSION['valid'])) {
+    header("Location: login.php"); // Redirect to login.php since index.php doesn't exist
+    exit;
+}
+
+include "dbconfig.php"; // Include database configuration
+$con = mysqli_connect($server, $login, $password, $dbname); // Establish a database connection
+
+// Check if ID is set in the session, redirect if not
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// Fetch user details based on the user's ID
+$id = $_SESSION['id'];
+$query = mysqli_query($con, "SELECT * FROM USERS WHERE id = $id");
+
+// Initialize variables
+$res_Uname = "";
+$res_email = "";
+$res_role = "";
+$userFound = false;
+
+while ($result = mysqli_fetch_assoc($query)) {
+    $res_Uname = $result['username'];
+    $res_email = $result['email'];
+    $res_role = $result['role'];
+    $userFound = true; // Mark that user is found
+}
+
+// If user is not found, redirect to login with an error
+if (!$userFound) {
+    $_SESSION['error'] = "User not found. Please login again.";
+    header("Location: login.php");
+    exit;
+}
+function getGreeting(){
+    $hour = date('H');
+    if($hour < 12){
+        return "Good Morning";
+    } elseif($hour < 18){
+        return "Good Afternoon";
+    } else {
+        return "Good Evening";
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">   
+<html lang="en"> 
   <head><script src="js/color-modes.js"></script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -10,17 +64,9 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="css/bootstrap.rtl.min.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
     <link href="css/blog.rtl.css" rel="stylesheet">
-    <title>Music Box</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
   </head>
-
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -39,7 +85,12 @@
     </svg>
 
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+              id="bd-theme"
+              type="button"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              aria-label="Toggle theme (auto)">
         <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
         <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
       </button>
@@ -68,46 +119,91 @@
       </ul>
     </div>
 
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
-      </symbol>
-      <symbol id="cart" viewBox="0 0 16 16">
-        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-      </symbol>
-      <symbol id="chevron-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-      </symbol>
-    </svg>
+    
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
+  </symbol>
+  <symbol id="cart" viewBox="0 0 16 16">
+    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  <symbol id="chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </symbol>
+</svg>
 
-    <div class="container">
-      <header class="border-bottom lh-1 py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1"></div>
-          <div class="col-4 text-center">
-            <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="link-secondary" href="#" aria-label="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>TITLE</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-            </a>   
-          </div>
+<div class="container">
+  <header class="border-bottom lh-1 py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+          <div class="dropdown">
+          <button class="btn dropdown-toggle d-flex align-items-center"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown">
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"></svg>
+                    <img src="images/profImage.jpeg" width="40px" height="40px">
+            <span class="visually-hidden">Settings</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li>
+              <a href="../static/genProfileSignedIn.php"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                My Profile
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button></a>
+            </li>
+            <li>
+              <a href="#"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Notifications
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button></a>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                <?php
+                echo "<a href='edit.php?Id=$id'>Change Profile</a>";
+                ?>               
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button>
+            </li>
+            <li>
+              <a href="../static/logout.php"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
+                Log Out
+                <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>
+              </button> </a>
+            </li>
+
+          </ul>
         </div>
-      </header>
-
-      <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-          <a class="nav-item nav-link link-body-emphasis" href="home.html">HOME</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-          <a class="nav-item nav-link link-body-emphasis" href="faq.html">FAQ</a>
-          <a class="nav-item nav-link link-body-emphasis" href="about.html">ABOUT</a>
-          <a class="nav-item nav-link link-body-emphasis" href="login.php">LOGIN</a>      
-        </nav>
+      </div>
+      <div class="col-4 text-center">
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="link-secondary" href="#" aria-label="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>TITLE</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+        </a>
+   
       </div>
     </div>
+  </header>
 
-    <main class="container">
+  <div class="nav-scroller py-1 mb-3 border-bottom">
+    <nav class="nav nav-underline justify-content-between">
+      <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
+      <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
+      <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a> 
+    </nav>
+  </div>
+</div>
+
+<main class="container">
       <div class="row mb-2 border rounded">
         <div class="col-auto d-none d-lg-block">
           <div id="content" class="bodySec">
@@ -136,6 +232,8 @@
     </main>
   </body>
 </html>
+
+<script src="js/bootstrap.bundle.min.js"></script>
 
 <style>    
 #content{

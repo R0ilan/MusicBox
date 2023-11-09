@@ -24,19 +24,8 @@ if(!isset($_SESSION['valid'])){
                 <meta http-equiv="X-UA-Compatible" content="IE-edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" href="style.css">
-                <title> MusicBox: Change Profile </title>  
 </head>
 <body>
-
-                <div class="nav">
-                        <div class="logo">
-                                <p><a href="home.html">MusicBox</a></p>
-                        </div>
-                        <div class="right-links">
-                                <a href="#">Change Profile</a>
-                                <a href="logout.php"> <button class="btn">Logout</button></a>
-                        </div>
-                </div>
                 <div class="container">
                         <div class="box form-box">
 
@@ -81,20 +70,22 @@ if(isset($_POST['submit'])){
         <option value="" disabled selected>Please select one of the following options</option>
         <option value="Avid Listener">Avid Listener</option>
         <option value="Indie Artist">Indie Artist</option>
-        <option value="Independent Record Label">Independent Record Label</option>
         <option value="Music Educator">Music Educator</option>
         <option value="Music Student">Music Student</option>
         <option value="Professional Reviewer">Professional Reviewer</option>
-        <option value="Record Label Manager">Record Label Manager</option>
     </select>
 </div>
 
                                                 <div class="field">
                                                 <input type="submit" name="submit" class="btn" value="Update" required>
                                         </div>
+                                        <div class="navigate">
+                    <a href="genProfileSignedIn.php">Home</a>
+                </div>
 
     </form>
 </div> 
 <?php } ?>
+
 </body>
 </html>
