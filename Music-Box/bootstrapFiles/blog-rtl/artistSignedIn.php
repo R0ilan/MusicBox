@@ -156,7 +156,49 @@ function getGreeting(){
       }
     </style>
 
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+          $.ajax({
+            url: 'get_recently_played_tracks.php',
+            type: 'post',
+            data: 'number_of_tracks=4', // Limit to top 4 tracks
+            dataType: 'json',
+            success: function(response) {
+              for (recently_played_track of response['recently_played_tracks']) {
+                // Get album image URL
+                let imgSrc = ''
+                let imgWidth = 100
+                let imgHeight = 150
+                if (recently_played_track['track']['album']['images'].length > 0) {
+                  imgSrc = recently_played_track['track']['album']['images'][0]['url'];
+                  imgWidth = recently_played_track['track']['album']['images'][0]['width'];
+                  imgHeight = recently_played_track['track']['album']['images'][0]['height'];
+
+                  // Rescale to have width of 100
+                  imgHeight = imgHeight * 100 / imgWidth;
+                  imgWidth = 100;
+                }
+
+                let div = document.createElement('div');
+                div.setAttribute('class', 'col');
+
+                let img = document.createElement('img');
+                img.setAttribute('src', imgSrc);
+                img.setAttribute('width', `${imgWidth}px`);
+                img.setAttribute('height', `${imgHeight}px`);
+                div.appendChild(img);
+
+                $('#recentlyPlayedTracks').append(div);
+              }
+            },
+            error: () => {
+              console.log('get_recently_played_tracks.php failed.');
+            }
+          })
+        });
+    </script>
+
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -303,19 +345,8 @@ function getGreeting(){
         <div class="col-auto d-none d-lg-block">
           <div id="content" class="bodySec">
             <div class="container text-center">
-              <div class="row align-items-center">
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
+              <div id="recentlyPlayedTracks" class="row align-items-center">
+                <!--Filled dynamically using script-->
               </div>
             </div>
             <br>
