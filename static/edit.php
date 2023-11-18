@@ -70,8 +70,6 @@ if(isset($_POST['submit'])){
         <option value="" disabled selected>Please select one of the following options</option>
         <option value="Avid Listener">Avid Listener</option>
         <option value="Indie Artist">Indie Artist</option>
-        <option value="Music Educator">Music Educator</option>
-        <option value="Music Student">Music Student</option>
         <option value="Professional Reviewer">Professional Reviewer</option>
     </select>
 </div>

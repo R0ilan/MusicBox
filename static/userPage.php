@@ -40,14 +40,6 @@ if (!$userFound) {
     exit;
 }
 function getGreeting(){
-    $hour = date('H');
-    if($hour < 12){
-        return "Good Morning";
-    } elseif($hour < 18){
-        return "Good Afternoon";
-    } else {
-        return "Good Evening";
-    }
 }
 ?>
 
@@ -260,13 +252,6 @@ function getGreeting(){
 </div>
 
 <main class="container">
-  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-    <div class="col-lg-6 px-0">
-      <h1 id = "user" class="display fst-italic">Hello <b><?php echo $res_Uname; ?></b>, Welcome!</h1>
-      <p class="lead my-3">Profile Type: <b><?php echo $res_role; ?></b></p>
-    </div>
-  </div>
-
   <div class="row mb-2">
     <div id="RLT" class="col-md-6 border rounded">
         <div class="col-auto d-none d-lg-block">
@@ -334,18 +319,6 @@ function getGreeting(){
       </article>
 
     </div>
-
-    <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem;"></div>
-
-        <div>
-          <h4 class="fst-italic">Friends</h4>
-          <ul class="list-unstyled" id="friendList">
-            <!--Filled dynamically using script-->
-          </ul>
-        </div>    
-      </div>
-    </div>
   </div>
 
 </main>
@@ -394,7 +367,6 @@ function getGreeting(){
           })
         });
     </script>
-
     </body>
 </html>
 
