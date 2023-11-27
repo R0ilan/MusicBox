@@ -53,8 +53,9 @@ function getGreeting(){
 
 <!DOCTYPE html>
 <html lang="en"> 
-  <head><script src="js/color-modes.js"></script>
-
+  <head>
+    <script src="js/color-modes.js"></script>
+    <script src="js/index.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -197,7 +198,7 @@ function getGreeting(){
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
                   <svg class="bi my-1 theme-icon-active" width="5px" height="5px"></svg>
-                    <img src="images/profImage.jpeg" width="40px" height="40px">
+                  <img src="./images/profile-1.jpg" width="40px" height="40px">
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
@@ -248,9 +249,10 @@ function getGreeting(){
   </header>
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
+  <nav class="nav nav-underline justify-content-between">
       <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">MEMBERS</a>
       <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
       <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a> 
     </nav>
@@ -353,4 +355,52 @@ function getGreeting(){
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
   }
+
+  .left .sidebar i .notification-count {
+    background: var(--color-danger);
+    color: white;
+    font-size: 0.7rem;
+    width: fit-content;
+    border-radius: 0.8rem;
+    padding: 0.1rem 0.4rem;
+    position: absolute;
+    top: -0.2rem;
+    right: -0.3rem;
+}
+
+/* =============== Notification Popup ============== */
+.left .notifications-popup {
+    position: absolute;
+    top: 0;
+    left: 110%;
+    width: 30rem;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    box-shadow: 0 0 2rem hsl(var(--color-primary), 75%, 60%, 25%);
+    z-index: 8;
+    display: none;
+}
+
+.left .notifications-popup::before {
+    content: "";
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+    background: var(--color-white);
+    position: absolute;
+    left: -0.6rem;
+    transform: rotate(45deg);
+}
+
+.left .notifications-popup > div {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.left .notifications-popup small {
+    display: block;
+}
 </style>

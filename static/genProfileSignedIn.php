@@ -53,8 +53,9 @@ function getGreeting(){
 
 <!DOCTYPE html>
 <html lang="en"> 
-  <head><script src="js/color-modes.js"></script>
-
+  <head>
+    <script src="js/color-modes.js"></script>
+    <script src="js/index.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -64,6 +65,8 @@ function getGreeting(){
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="css/bootstrap.rtl.min.css" rel="stylesheet">
+    <script src="js/index.js"></script>
+
 
     <!--JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -117,6 +120,7 @@ function getGreeting(){
           })
         });
 
+        
     </script>
     
     <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -198,7 +202,7 @@ function getGreeting(){
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
                   <svg class="bi my-1 theme-icon-active" width="5px" height="5px"></svg>
-                    <img src="images/profImage.jpeg" width="40px" height="40px">
+                    <img src="./images/profile-1.jpg" width="40px" height="40px">
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
@@ -210,7 +214,7 @@ function getGreeting(){
               </button></a>
             </li>
             <li>
-              <a href="#"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
+            <a href="#"><button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false">
                 <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"></svg>
                 Notifications
                 <svg class="bi ms-auto d-none" width="1em" height="1em"></svg>

@@ -143,7 +143,7 @@ function getGreeting(){
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
                   <svg class="bi my-1 theme-icon-active" width="5px" height="5px"></svg>
-                    <img src="images/profImage.jpeg" width="40px" height="40px">
+                  <img src="./images/profile-1.jpg" width="40px" height="40px">
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
@@ -194,9 +194,10 @@ function getGreeting(){
   </header>
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
+  <nav class="nav nav-underline justify-content-between">
       <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
       <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">MEMBERS</a>
       <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
       <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a> 
     </nav>
