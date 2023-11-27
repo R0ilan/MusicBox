@@ -276,19 +276,8 @@ function getGreeting(){
         <div class="col-auto d-none d-lg-block">
           <div id="content" class="bodySec">
             <div class="container text-center">
-              <div class="row align-items-center">
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
-                <div class="col">
-                  <img src="" width="100px" height="150px">
-                </div>
+              <div id="recentlyPlayedTracks" class="row align-items-center">
+                <!--Filled dynamically using script-->
               </div>
             </div>
             <br>
