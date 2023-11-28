@@ -8,7 +8,8 @@
     session_start();
 
     // User ID of currently logged-in user is "id" session variable
-    if (!isset($_SESSION["id"]) or !isset($_POST["review_text"]) or !isset($_POST["track_spotify_id"]))
+    if (!isset($_SESSION["id"]) or !isset($_POST["review_text"])
+        or !isset($_POST["track_spotify_id"]) or !isset($_POST["review_rating"]))
     {
         exit("false"); // Failed
     }
@@ -22,8 +23,8 @@
 
     // Insert review into database
     $stmt = mysqli_prepare($mysql,
-        "INSERT INTO REVIEWS (user_id, track_spotify_id, review_text, review_time) VALUES (?, ?, ?, Now());");
-    mysqli_stmt_bind_param($stmt, "iss", $_SESSION["id"], $_POST["track_spotify_id"], $_POST["review_text"]);
+        "INSERT INTO REVIEWS (user_id, track_spotify_id, review_text, review_time, review_rating) VALUES (?, ?, ?, Now(), ?);");
+    mysqli_stmt_bind_param($stmt, "issd", $_SESSION["id"], $_POST["track_spotify_id"], $_POST["review_text"], $_POST["review_rating"]);
 
     if (mysqli_stmt_execute($stmt))
     {

@@ -6,6 +6,7 @@ CREATE TABLE REVIEWS (
     track_spotify_id CHAR(62) NOT NULL, -- Spotify base-62 ID
     review_text VARCHAR(2000) NOT NULL, -- Review text
     review_time DATETIME NOT NULL,      -- Date and time of review
+    review_rating FLOAT NOT NULL,       -- Rating score of review
     PRIMARY KEY(review_id),
     FOREIGN KEY(user_id) REFERENCES USERS(id)
 );
