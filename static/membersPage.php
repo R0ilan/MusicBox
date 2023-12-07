@@ -1,3 +1,16 @@
+<?php
+include 'dbconfig.php';
+session_start();
+$con = mysqli_connect($server, $login, $password, $dbname)
+    or die("<br>Cannot connect to DB\n");
+
+$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
+    JOIN USERS u on p.user_id=u.id
+    ORDER BY date DESC;";
+$result = mysqli_query($con, $sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +36,7 @@
             <div class="create">
                 <label class="btn btn-primary" for="create-post">Create</label>
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="./images/profile-2.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -36,7 +49,7 @@
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
+                        <img src="./images/profile-2.jpg">
                     </div>
                     <div class="handle">
                         <h4>Amy Mitchell</h4>
@@ -185,15 +198,41 @@
                     </div>
                 </div>
                 <!----------------- END OF STORIES -------------------->
-                <form action="" class="create-post">
+                <form action="posts_backend.php" method="post" class="create-post">
                     <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
+                        <img src="./images/profile-2.jpg">
                     </div>
-                    <input type="text" placeholder="What's are you listening to, Amy ?" id="create-post">
+                    <input type="text" placeholder="What's are you listening to, Amy ?" name="create-post">
                     <input type="submit" value="Post" class="btn btn-primary">
                 </form>
                 <!----------------- FEEDS -------------------->
                 <div class="feeds">
+                    <!----------------- FEED dynamic -------------------->
+                    <?php
+                    if ($result->num_rows > 0) {
+                        // Output data of each row
+                        while($row = $result->fetch_assoc()) {
+                            echo '<div class="feed">';
+                            echo '<div class="head">';
+                            echo '<div class="user">';
+                            echo '<div class="profile-photo">';
+                            echo '<img src="./images/profile-'. $row["user_id"] .'.jpg">'; // Assuming you have user profile images named as profile-user_id.jpg
+                            echo '</div>';
+                            echo '<div class="info">';
+                            echo '<h3>'. $row["name"] .'</h3>'; // Replace with actual user name if available
+                            echo '<small>'. $row["date"] .'</small>'; // Format date as required
+                            echo '</div></div>';
+                            echo '<span class="edit"><i class="uil uil-ellipsis-h"></i></span></div>';
+                            //echo '<div class="photo"><img src="./images/feed-'. $row["id"] .'.jpg"></div>'; // Assuming you have post images named as feed-post_id.jpg
+                            echo '<div class="action-buttons"><div class="interaction-buttons"><span><i class="uil uil-heart"></i></span><span><i class="uil uil-comment-dots"></i></span><span><i class="uil uil-share-alt"></i></span></div><div class="bookmark"><span><i class="uil uil-bookmark-full"></i></span></div></div>';
+                            //echo '<div class="liked-by"><p>Liked by <b>'. $row["likes"] .' others</b></p></div>'; // Replace with actual likes data if available
+                            echo '<div class="caption"><p><b>'. $row["name"] .'</b> '. $row["content"] .'</p></div>'; // Replace with actual user name if available
+                            echo '<div class="comments text-muted">View all comments</div></div>'; // Replace with actual comments data if available
+                        }
+                    } else {
+                        echo "No user's posts found";
+                    }
+                    ?>
                     <!----------------- FEED 1 -------------------->
                     <div class="feed">
                         <div class="head">
