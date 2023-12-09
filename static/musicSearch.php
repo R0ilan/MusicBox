@@ -162,6 +162,53 @@ if (!isset($_SESSION['id'])) {
 
     
 </style>
+
+<!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+      $('[name="searchInput"]').on("submit", function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: 'search_tracks.php',
+          type: 'post',
+          data: $('[name="searchInput"]').serialize(),
+          dataType: 'json',
+          success: function(response) {
+            // First clear current results
+            $('.results').empty();
+
+            // Dynamically create
+            for (track of response['tracks']['items']) {
+              let divTrack = document.createElement('div');
+              // divTrack.setAttrbute('class', );  TODO: make a class for this
+
+              let pTrackName = document.createElement('p');
+              pTrackName.textContent = track['name'];
+              divTrack.appendChild(pTrackName);
+
+              let pAlbumName = document.createElement('p');
+              pAlbumName.textContent = track['album']['name'];
+              divTrack.appendChild(pAlbumName);
+
+              let imgAlbum = document.createElement('img');
+
+              if (track['album']['images'].length > 0) {
+                imgAlbum.setAttribute('src', track['album']['images'][0]['url']);
+              }
+
+              divTrack.appendChild(imgAlbum);
+
+              $('.results').append(divTrack);
+            }
+          },
+          error: () => {
+            console.log('search_tracks.php failed.');
+          }
+        });
+      });
+    });
+</script>
 </head>
 
 <body>
@@ -239,7 +286,7 @@ if (!isset($_SESSION['id'])) {
                   type="button"
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
-                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="profImage.jpeg" width="40px" height="40px"></svg>
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="images/profImage.jpeg" width="40px" height="40px"></svg>
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
@@ -295,8 +342,10 @@ if (!isset($_SESSION['id'])) {
 
                 <div class="main-search-input-item">
                     <form name="searchInput" action="musicSearch.php" method="post">
-                    <input class ="searchInput" type="text"  value="searchInput" placeholder="Search For Music!" font-family="Amiri">
-                    <button class="main-search-button" value="submit">Search</button>
+                    <input type="hidden" name="search_limit" value="25">
+                    <input class ="searchInput" type="text"  name="search_q" placeholder="Search For Music!" font-family="Amiri">
+                    <!--<button type="button" class="main-search-button">Search</button>-->
+                    <input type="submit" value="Search">
                   </form>
                </div>
                                                 
