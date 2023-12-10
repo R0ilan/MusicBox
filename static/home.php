@@ -55,6 +55,11 @@ $sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date
     JOIN USERS u on p.user_id=u.id
     ORDER BY date DESC;";
 $result = mysqli_query($con, $sql);
+
+$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
+    JOIN USERS u on p.user_id=u.id
+    ORDER BY date DESC;";
+$result = mysqli_query($con, $sql);
 ?>
 
 <!DOCTYPE html>
