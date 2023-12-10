@@ -50,6 +50,11 @@ function getGreeting()
     return "Good Evening";
   }
 }
+
+$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
+    JOIN USERS u on p.user_id=u.id
+    ORDER BY date DESC;";
+$result = mysqli_query($con, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -73,58 +78,6 @@ function getGreeting()
   <!--JQuery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    jQuery(document).ready(function($) {
-      $.ajax({
-        url: 'get_friends.php',
-        type: 'post',
-        data: '',
-        dataType: 'json',
-        success: function(response) {
-          for (friend of response['friends']) {
-            let li = document.createElement('li');
-            let a = document.createElement('a');
-            a.setAttribute('class', 'd-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top');
-            a.setAttribute('href', '#');
-            li.appendChild(a);
-
-            let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('class', 'bd-placeholder-img');
-            svg.setAttribute('width', '100%');
-            svg.setAttribute('height', '96');
-            svg.setAttribute('aria-hidden', 'true');
-            svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-            svg.setAttribute('focusable', 'false');
-            a.appendChild(svg);
-
-            let rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            rect.setAttribute('width', '100%');
-            rect.setAttribute('height', '100%');
-            rect.setAttribute('fill', '#777');
-            svg.appendChild(rect);
-
-            let div = document.createElement('div');
-            div.setAttribute('class', 'col-lg-8');
-            a.appendChild(div);
-
-            let h6 = document.createElement('h6');
-            h6.setAttribute('class', 'mb-0');
-            h6.textContent = `${friend['name']} Profile`;
-            div.appendChild(h6);
-
-            // TODO: Make profile link functional.
-
-            $('#friendList').append(li);
-          }
-        },
-        error: () => {
-          console.log('get_friends.php failed.');
-        }
-      })
-    });
-  </script>
-
   <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
   <link href="css/blog.rtl.css" rel="stylesheet">
 </head>
@@ -215,11 +168,6 @@ function getGreeting()
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
           <a class="link-secondary" href="#" aria-label="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24">
-              <title>TITLE</title>
-              <circle cx="10.5" cy="10.5" r="7.5" />
-              <path d="M21 21l-5.2-5.2" />
-            </svg>
           </a>
         </div>
       </div>
@@ -248,19 +196,19 @@ function getGreeting()
           <div class="handle">
             <h4>Jared Williams</h4>
             <p class="text-muted">
-            @<b><?php echo $res_Uname; ?></b>
-            <br>
-            <b><?php echo $res_role; ?></b>
+              @<b><?php echo $res_Uname; ?></b>
+              <br>
+              <b><?php echo $res_role; ?></b>
             </p>
           </div>
         </a>
         <!----------------- SIDEBAR -------------------->
         <div class="sidebar">
-          <a class="menu-item">
+          <a class="menu-item" href="../static/home.php">
             <span><i class="uil uil-home"></i></span>
             <h3>Home</h3>
           </a>
-          <a class="menu-item">
+          <a class="menu-item" href="../static/genProfileSignedIn.php">
             <span><i class="uil uil-compass"></i></span>
             <h3>Profile</h3>
           </a>
@@ -268,11 +216,13 @@ function getGreeting()
             <span><i class="uil uil-bell"></i></span>
             <h3>Notification</h3>
           </a>
-          <a class="menu-item">
-            <span><i class="uil uil-setting"></i></span>
-            <h3>Edit Profile</h3>
-          </a>
-          <a class="menu-item">
+          <?php echo "             
+            <a class='menu-item' href='edit.php?Id=$id'>
+                <span><i class='uil uil-setting'></i></span>                        
+                <h3>Edit Profile</h3>
+            </a>";
+          ?>
+          <a class="menu-item" href="../static/logout.php">
             <span><i class="uil uil-palette"></i></span>
             <h3>Log Out</h3>
           </a>
@@ -280,376 +230,67 @@ function getGreeting()
         <!----------------- END OF SIDEBAR -------------------->
       </div>
 
-            <!----------------- MIDDLE -------------------->
-            <div class="middle">
-                <form action="" class="create-post">
-                    <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
-                    </div>
-                    <input type="text" placeholder="What's are you listening to, Amy ?" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary">
-                </form>
-                <!----------------- FEEDS -------------------->
-                <div class="feeds">
-                    <!----------------- FEED 1 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-13.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Lana Rose</h3>
-                                    <small>New York City, 15 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-1.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Ernest Achiever</b> and <b>2,323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Lana Rose</b> Christmas is coming and I am Excited and cant Wait! Listen to My favorite christmas songs here!
-                                <span class="harsh-tag">#ChristmasSongs</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 1 -------------------->
-
-                    <!----------------- FEED 2 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-10.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Clara Dwayne</h3>
-                                    <small>Miami, 2 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-3.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-11.jpg"></span>
-                            <span><img src="./images/profile-5.jpg"></span>
-                            <span><img src="./images/profile-16.jpg"></span>
-                            <p>Liked by <b>Diana Rose</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Clara Dwayne</b> Nothing like listening to music to unwind, Join me and listen to my relaxing music playlist!
-                                <span class="harsh-tag">#lifestyle</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 100 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 2 -------------------->
-
-                    <!----------------- FEED 3 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-4.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Rosalinda Clark</h3>
-                                    <small>New York, 50 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-4.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-12.jpg"></span>
-                            <span><img src="./images/profile-13.jpg"></span>
-                            <span><img src="./images/profile-14.jpg"></span>
-                            <p>Liked by <b>Clara Dwayne</b> and <b>2,663 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Rosalinda Clark</b> Met some really amazing people this weekend at my sisters bachelorette party. Thank you to <b>@lisa_sand123</b> and <b>@debbieBite456</b> for sharing some amazing party starter songs with me! Now I'll always be the lift of the party!
-                                <span class="harsh-tag">#PartyStarter</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 50 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 3 -------------------->
-
-                    <!----------------- FEED 4 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-5.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Alexandria Riana</h3>
-                                    <small>Dubai, 1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-5.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Lana Rose</b> and <b>5,323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Alexandria Riana</b> I am always on the go with Clients, these are some songs that I found help me stay motivated when on the move and working!
-                                <span class="harsh-tag">#GrindHarder</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 540 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 4 -------------------->
-
-                    <!----------------- FEED 5 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-7.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Keylie Hadid</h3>
-                                    <small>Dubai, 3 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-7.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Riana Rose</b> and <b>1,226 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Keylie Hadid</b> New Study music playlist on my page! These are songs i found while traveling for work, listen for yourself and leave a rating!
-                                <span class="harsh-tag">#StudyMusic</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 199 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 5 -------------------->
-
-                    <!----------------- FEED 6 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-15.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Benjamin Dwayne</h3>
-                                    <small>New York, 5 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-2.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Ernest Achiever</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Benjamin Dwayne</b> Hey all! Please go listen to my new single "Given" now out on Spotify and all other platforms! Please leave a positive rating!!! xoxoxo <span class="harsh-tag">#Artist</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 6 -------------------->
-
-                    <!----------------- FEED 7 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-3.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Indiana Ellison</h3>
-                                    <small>Qatar, 8 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-6.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Benjamin Dwayne</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Indiana Ellison</b> Thank you Kylie for the new study music! make sure to follow her page <b>@KeyHadid</b> for more awesome music!
-                                <span class="harsh-tag">#NewMusic</span>
-                            </p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 7 -------------------->
-                </div>
-                <!----------------- END OF FEEDS -------------------->
+      <!----------------- MIDDLE -------------------->
+      <div class="middle">
+        <form action="posts_backend.php" method="post" class="create-post">
+            <div class="profile-photo">
+                <img src="./images/profile-1.jpg">
             </div>
-            <!----------------- END OF MIDDLE -------------------->
-    </main>
+            <input type="text" placeholder="What's are you listening to, Amy ?" name="create-post">
+            <input type="submit" value="Post" class="btn btn-primary">
+        </form>
+        <!----------------- FEEDS -------------------->
+        <div class="feeds">
+          <!----------------- FEED dynamic -------------------->
+          <?php
+          if ($result->num_rows > 0) {
+            // Output data of each row
+            while ($row = $result->fetch_assoc()) {
+              echo '<div class="feed">';
+              echo '<div class="head">';
+              echo '<div class="user">';
+              echo '<div class="profile-photo">';
+              echo '<img src="./images/profile-' . $row["user_id"] . '.jpg">'; // Assuming you have user profile images named as profile-user_id.jpg
+              echo '</div>';
+              echo '<div class="info">';
+              echo '<h3>' . $row["name"] . '</h3>'; // Replace with actual user name if available
+              echo '<small>' . $row["date"] . '</small>'; // Format date as required
+              echo '</div></div>';
+              echo '<div class="dropdown"><button onclick="myFunction()" class="dropbtn"><i class="uil uil-ellipsis-h"></i></button><div id="myDropdown" class="dropdown-content"><a href="#edit">Edit</a><a href="#delete">Delete</a></div></div></div>';
+              //echo '<div class="photo"><img src="./images/feed-'. $row["id"] .'.jpg"></div>'; // Assuming you have post images named as feed-post_id.jpg
+              //echo '<div class="liked-by"><p>Liked by <b>'. $row["likes"] .' others</b></p></div>'; // Replace with actual likes data if available
+              echo '<br>';
+              echo '<div class="caption"><p>'. $row["content"] . '</p></div>'; // Replace with actual user name if available
+              echo '<div class="action-buttons"><div class="interaction-buttons"><span><i class="uil uil-heart"></i></span><span><i class="uil uil-comment-dots"></i></span></div><div class="bookmark"><span><i class="uil uil-bookmark-full"></i></span></div></div>';
+              echo '<div class="comments text-muted">View all comments</div></div>'; // Replace with actual comments data if available
+            }
+          } else {
+            echo "No user's posts found";
+          }
+          ?>
+
+          <script>
+            function myFunction() {
+              document.getElementById("myDropdown").classList.toggle("show");
+            }
+            window.onclick = function(event) {
+              if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                  }
+                }
+              }
+            }
+          </script>
+        </div>
+        <!----------------- END OF FEEDS -------------------->
+      </div>
+      <!----------------- END OF MIDDLE -------------------->
+  </main>
 
 </body>
 
@@ -737,45 +378,46 @@ function getGreeting()
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
   }
+
   /*=============== general =============*/
   :root {
-        --primary-color-hue: 252;
-        --dark-color-lightness: 17%;
-        --light-color-lightness: 95%;
-        --white-color-lightness: 100%;
+    --primary-color-hue: 252;
+    --dark-color-lightness: 17%;
+    --light-color-lightness: 95%;
+    --white-color-lightness: 100%;
 
-        --color-white: hsl(252, 30%, var(--white-color-lightness));
-        --color-light: hsl(0, 0%, 100%(--light-color-lightness));
-        --color-grey: hsl(0, 0%, 100%);
-        --color-primary: hsl(var(--primary-color-hue), 241, 64%, 30%);
-        --color-secondary: hsl(0, 24%, 90%);
-        --color-success: hsl(120, 95%, 65%);
-        --color-danger: hsl(0, 95%, 65%);
-        --color-dark: hsl(252, 30%, var(--dark-color-lightness));
-        --color-black: hsl(252, 30%, 10%);
+    --color-white: hsl(252, 30%, var(--white-color-lightness));
+    --color-light: hsl(0, 0%, 100%(--light-color-lightness));
+    --color-grey: hsl(0, 0%, 100%);
+    --color-primary: hsl(var(--primary-color-hue), 241, 64%, 30%);
+    --color-secondary: hsl(0, 24%, 90%);
+    --color-success: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, var(--dark-color-lightness));
+    --color-black: hsl(252, 30%, 10%);
 
-        --border-radius: 2rem;
-        --card-border-radius: 1rem;
-        --btn-padding: 0.6rem 2rem;
-        --search-padding: 0.6rem 1rem;
-        --card-padding: 1rem;
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
 
-        --sticky-top-left: 5.4rem;
-        --sticky-top-right: -18rem;
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
 
-    }
-  
-    /* =============== Main ============== */
-    main {
-        position: relative;
-        top: 1.4rem;
-    }
+  }
 
-    main .container {
-        display: grid;
-        grid-template-columns: 18vw auto 20vw;
-        position: relative;
-    }
+  /* =============== Main ============== */
+  main {
+    position: relative;
+    top: 1.4rem;
+  }
+
+  main .container {
+    display: grid;
+    grid-template-columns: 18vw auto 20vw;
+    position: relative;
+  }
 
   /* =============== Left ============== */
   main .container .left {
@@ -786,12 +428,16 @@ function getGreeting()
 
   main .container .left .profile {
     padding: var(--card-padding);
-    background: var(--color-white);
     border-radius: var(--card-border-radius);
     display: flex;
     align-items: center;
     column-gap: 1rem;
     width: 100%;
+    font-size: 13px;
+  }
+
+  main .container .left .profile h4 {
+    font-size: 18px;
   }
 
   .profile-photo {
@@ -834,112 +480,152 @@ function getGreeting()
   }
 
   .left .sidebar {
-        background: var(--color-light);
-    }
+    background: var(--color-light);
+  }
 
-    .left .sidebar i,
-    .left .sidebar h3 {
-      margin-left: 1.5rem;
+  .left .sidebar i,
+  .left .sidebar h3 {
+    margin-left: 1.5rem;
     font-size: 1.4rem;
-        color: var(--color-primary);
-    }
-  
-    .left .sidebar .active::before {
-        content: "";
-        display: block;
-        width: 0.5rem;
-        height: 100%;
-        position: absolute;
-        background: var(--color-primary);
-    }
+    color: var(--color-primary);
+  }
 
-    .left .btn {
-        margin-top: 1rem;
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        margin-bottom: 0.7rem;
-    }
+  .left .sidebar .active::before {
+    content: "";
+    display: block;
+    width: 0.5rem;
+    height: 100%;
+    position: absolute;
+    background: var(--color-primary);
+  }
 
-      /* =============== Create Post ============== */
-      .middle .create-post {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 1rem;
-        background: var(--color-white);
-        padding: 0.4rem var(--card-padding);
-        border-radius: var(--border-radius);
-        position: relative;
-        left: 50px;
-    }
+  .left .btn {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 0.7rem;
+  }
 
-    .middle .create-post input[type="text"] {
-        width: 100%;
-        justify-self: start;
-        padding-left: 1rem;
-        background: transparent;
-        color: var(--color-dark);
-        margin-right: 1rem;
-    }
+  /* =============== Create Post ============== */
+  .middle .create-post {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 0.4rem var(--card-padding);
+    border-radius: var(--border-radius);
+    position: relative;
+  }
 
-    /* =============== Feeds ============== */
-    .middle .feeds .feed {
-        background: var(--color-white);
-        border-radius: var(--card-border-radius);
-        padding: var(--card-padding);
-        margin: 1rem 0;
-        font-size: 0.85rem;
-        line-height: 1.5;
-        position: relative;
-        left: 50px;
-        width: 120%;
-    }
+  .middle .create-post input[type="text"] {
+    width: 100%;
+    justify-self: start;
+    padding-left: 1rem;
+    background: transparent;
+    color: var(--color-dark);
+    margin-right: 1rem;
+  }
 
-    .middle .feed .head {
-        display: flex;
-        justify-content: space-between;
-    }
+  /* =============== Feeds ============== */
+  .middle .feeds .feed {
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    position: relative;
+    width: 90%;
+  }
 
-    .middle .feed .user {
-        display: flex;
-        gap: 1rem;
-    }
+  .middle .feed .head {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .middle .feed .photo {
-        border-radius: var(--card-border-radius);
-        overflow: hidden;
-        margin: 0.7rem 0;
-    }
+  .middle .feed .user {
+    display: flex;
+    gap: 1rem;
+  }
 
-    .middle .feed .action-buttons {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.4rem;
-        margin: 0.6rem 0;
-    }
+  .middle .feed .photo {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    margin: 0.7rem 0;
+  }
 
-    .middle .liked-by {
-        display: flex;
-    }
+  .middle .feed .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    margin: 0.6rem 0;
+  }
 
-    .middle .liked-by span {
-        width: 1.4rem;
-        height: 1.4rem;
-        display: block;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 2px solid var(--color-white);
-        margin-left: -0.6rem;
-    }
+  .middle .liked-by {
+    display: flex;
+  }
 
-    .middle .liked-by span:first-child {
-        margin: 0;
-    }
+  .middle .liked-by span {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-white);
+    margin-left: -0.6rem;
+  }
 
-    .middle .liked-by p {
-        margin-left: 0.5rem;
-    }
+  .middle .liked-by span:first-child {
+    margin: 0;
+  }
+
+  .middle .liked-by p {
+    margin-left: 0.5rem;
+  }
+
+  .dropbtn {
+    background-color: white;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropbtn:hover,
+  .dropbtn:focus {
+    background-color: lightgray;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown a:hover {
+    background-color: #ddd;
+  }
+
+  .show {
+    display: block;
+  }
 </style>

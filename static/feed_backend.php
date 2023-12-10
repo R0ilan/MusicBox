@@ -6,7 +6,8 @@ $con=mysqli_connect($server,$login,$password,$dbname)
 
 if(isset($_POST['feed'])){
     $feed = $_POST['feed'];
-    $username = $_POST['user'];
+    //$username = $_POST['user'];
+    $username = $_SESSION['username'];
     
     // Getting the user id from the username
     $user_id_query = "SELECT id FROM USERS WHERE username='$username'";

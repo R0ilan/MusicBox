@@ -78,7 +78,7 @@ if(isset($_POST['submit'])){
                                                 <input type="submit" name="submit" class="btn" value="Update" required>
                                         </div>
                                         <div class="navigate">
-                    <a href="genProfileSignedIn.php">Home</a>
+                    <a href="home.php">Home</a>
                 </div>
 
     </form>
