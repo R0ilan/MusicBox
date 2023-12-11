@@ -389,7 +389,7 @@ if (!isset($_SESSION['id'])) {
                   type="button"
                   aria-expanded="false"
                   data-bs-toggle="dropdown">
-                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="images/profImage.jpeg" width="40px" height="40px"></svg>
+                  <svg class="bi my-1 theme-icon-active" width="5px" height="5px"><img src="images/profImage.jpeg" id="profImg"></svg>
             <span class="visually-hidden">Settings</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
