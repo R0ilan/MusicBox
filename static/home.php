@@ -51,15 +51,11 @@ function getGreeting()
   }
 }
 
-$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
+$sql = "SELECT p.id, concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
     JOIN USERS u on p.user_id=u.id
     ORDER BY date DESC;";
 $result = mysqli_query($con, $sql);
 
-$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
-    JOIN USERS u on p.user_id=u.id
-    ORDER BY date DESC;";
-$result = mysqli_query($con, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -261,7 +257,21 @@ $result = mysqli_query($con, $sql);
               echo '<h3>' . $row["name"] . '</h3>'; // Replace with actual user name if available
               echo '<small>' . $row["date"] . '</small>'; // Format date as required
               echo '</div></div>';
-              echo '<div class="dropdown"><button onclick="myFunction()" class="dropbtn"><i class="uil uil-ellipsis-h"></i></button><div id="myDropdown" class="dropdown-content"><a href="#edit">Edit</a><a href="#delete">Delete</a></div></div></div>';
+              if ($row["user_id"] == $_SESSION['id']) {
+              echo '<div class="dropdown"><button onclick="myFunction(' . $row["id"] . ')" class="dropbtn"><i class="uil uil-ellipsis-h"></i></button><div id="myDropdown' . $row["id"] . '" class="dropdown-content">';
+              echo '<form action="edit_post.php" method="post">
+                    <input type="hidden" name="edit-post" value="edit">
+                    <input type="hidden" name="post-id[]" value="'. $row["id"] .'">
+                    <button type="submit" class="edit">Edit<i class="uil uil-edit"></i></button>
+                    </form>
+                    <form action="posts_backend.php" method="post">
+                    <input type="hidden" name="delete-post" value="delete">
+                    <input type="hidden" name="post-id[]" value="'. $row["id"] .'">
+                    <button type="submit" class="delete">Delete<i class="uil uil-trash-alt"></i></button>
+                    </form>';
+              echo "</div></div>";
+              }
+              echo "</div>";
               //echo '<div class="photo"><img src="./images/feed-'. $row["id"] .'.jpg"></div>'; // Assuming you have post images named as feed-post_id.jpg
               //echo '<div class="liked-by"><p>Liked by <b>'. $row["likes"] .' others</b></p></div>'; // Replace with actual likes data if available
               echo '<br>';
@@ -634,3 +644,8 @@ $result = mysqli_query($con, $sql);
     display: block;
   }
 </style>
+<script>
+  function myFunction(id) {
+    document.getElementById("myDropdown" + id).classList.toggle("show");
+}
+</script>
