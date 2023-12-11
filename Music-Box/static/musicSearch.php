@@ -160,6 +160,99 @@ if (!isset($_SESSION['id'])) {
             font-weight: 400;
         }
 
+    *,*:before,*:after {
+                          transition:.25s ease-in-out;
+                        }
+
+
+                        h1 {
+                          font-size:30px;
+                          text-align:center;
+                          padding:0 0 25px 0;
+                          color:#606060;
+                        }
+
+                        .checkbox-label {
+                          display:block;
+                          background:#f3f3f3;
+                          height:20px;
+                          width:50px;
+                          border-radius:50px;
+                          margin: auto;
+                          position:relative;
+                          box-shadow:0 0 0 2px #dddddd;
+                          .on {
+                            display:block;
+                            position:absolute;
+                            z-index:0;
+                            left:0;
+                            opacity:1;
+                            min-width:100px;
+                            opacity:0;
+                            color:rgba(19,191,17,1);
+                          }
+                          .off {
+                            display:block;
+                            position:absolute;
+                            z-index:0;
+                            right:100px;
+                            text-align:right;
+                            opacity:1;
+                            min-width:100px;
+                            opacity:1;
+                            color:#bbbbbb;
+                          }
+                          &:before {
+                            content:'';
+                            display:block;
+                            position:absolute;
+                            z-index:1;
+                            top:0;
+                            left:0;
+                            border-radius:50px;
+                            height:20px;
+                            width:20px;
+                            background:white;
+                            box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+                          }
+                        }
+
+                        .checkbox {
+                          position:absolute;
+                          left:-5000px;
+                          &:checked {
+                            + .checkbox-label {
+                              background:rgba(19,191,17,1);
+                              box-shadow:0 0 0 2px rgba(19,191,17,1);
+                              .on {
+                                left:100px;
+                                opacity:1;
+                              }
+                              .off {
+                                right:0px;
+                                opacity:0;
+                              }
+                              &:before {
+                                left:30px;
+                                box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px rgba(19,191,17,1);
+                              }
+                            }
+                          }
+                        }
+          img{
+            height: 100px;
+            width: 100px;
+          }
+          #profImg{
+            height: 40px;
+            width: 40px;
+          }
+    
+          .results{
+            margin: auto;
+            width: 50%;
+          }
+
     
 </style>
 
@@ -347,7 +440,15 @@ if (!isset($_SESSION['id'])) {
 </div>
 
 <body>
-<div class="border rounded">
+    <div class="col-4 pt-1">
+        <input class="checkbox" id="checkbox1" type="checkbox"/>
+          <label for="checkbox1" class="checkbox-label">
+              <span class="on">Explicit on.</span>
+              <span class="off">Explicit off.</span>
+          </label>
+    </div>
+    
+    <div class="p-4 p-md-5 mb-4">
         <div class="main-search-input-wrap">
 
                 <div class="main-search-input-item">
@@ -355,13 +456,16 @@ if (!isset($_SESSION['id'])) {
                     <input type="hidden" name="search_limit" value="25">
                     <input class ="searchInput" type="text"  name="search_q" placeholder="Search For Music!" font-family="Amiri">
 
-                    <!--TODO: Make CSS for checkbox-->
-                    <label>Include explicit</label>
-                    <input type="checkbox" name="search_explicit">
+                    <button id="submitBtn" type="submit" value="Search" class="main-search-button">Search</button> 
+                        <script>
+                          $(document).ready(function(){
+                              $('#searchTxt').keypress(function(e){
+                              if(e.keyCode==13)
+                                $('#submitBtn').click();
+                              });
+                           });
+                        </script>
 
-                    <!--TODO: Fix CSS for button. Must be input of type "submit" so behavior is correct when pressing enter on search-->
-                    <!--<button type="button" class="main-search-button">Search</button>-->
-                    <input type="submit" value="Search">
                   </form>
                </div>
                                                 
@@ -369,11 +473,15 @@ if (!isset($_SESSION['id'])) {
             </div>
 
     </div>
-<!-- Backend results from the search should be shown here -->
-<div class="results">
-    
 
-</div>
+    <div class="row mb-2">
+         <div class="border rounded">
+            <!-- Backend results from the search should be shown here -->
+            <div class="results">
+                
+            </div>
+        </div>
+    </div>
 
 
 </body>
