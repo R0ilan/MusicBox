@@ -440,13 +440,6 @@ if (!isset($_SESSION['id'])) {
 </div>
 
 <body>
-    <div class="col-4 pt-1">
-        <input class="checkbox" id="checkbox1" type="checkbox"/>
-          <label for="checkbox1" class="checkbox-label">
-              <span class="on">Explicit on.</span>
-              <span class="off">Explicit off.</span>
-          </label>
-    </div>
     
     <div class="p-4 p-md-5 mb-4">
         <div class="main-search-input-wrap">
@@ -473,6 +466,14 @@ if (!isset($_SESSION['id'])) {
             </div>
 
     </div>
+    <div class="col-4 pt-1">
+        <input class="checkbox" id="checkbox1" type="checkbox" name="search_explicit">
+          <label for="checkbox1" class="checkbox-label">
+              <span class="on">Explicit on.</span>
+              <span class="off">Explicit off.</span>
+          </label>
+    </div>
+    
 
     <div class="row mb-2">
          <div class="border rounded">
