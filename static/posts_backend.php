@@ -41,14 +41,15 @@
      $id = $_SESSION['id'];
      #$id=2;
      post($con, $id, $content);
- } elseif (isset($_POST['edit-post'])) {
-     $id = $_POST['post-id']; // Use a hidden field in your form to send the post id
-     $newContent = $_POST['edit-post'];
-     editPost($con, $id, $newContent);
  } elseif (isset($_POST['delete-post'])) {
-     $id = $_POST['post-id']; // Use a hidden field in your form to send the post id
-     deletePost($con, $id);
+     for ($i = 0; $i < count($_POST['post-id']); $i++) {
+         $id = $_POST['post-id'][$i];
+         deletePost($con, $id);
+     }
+     #$id = $_POST['post-id']; // Use a hidden field in your form to send the post id
+     #deletePost($con, $id);
  }
 
  header("Location: home.php");
-mysqli_close($con);
+ mysqli_close($con);
+ ?>

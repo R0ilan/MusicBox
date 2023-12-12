@@ -51,15 +51,11 @@ function getGreeting()
   }
 }
 
-$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
+$sql = "SELECT p.id, concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
     JOIN USERS u on p.user_id=u.id
     ORDER BY date DESC;";
 $result = mysqli_query($con, $sql);
 
-$sql = "SELECT concat(u.fname, ' ', lname) as name, p.user_id, p.content, p.date FROM POSTS p
-    JOIN USERS u on p.user_id=u.id
-    ORDER BY date DESC;";
-$result = mysqli_query($con, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -181,8 +177,8 @@ $result = mysqli_query($con, $sql);
     <div class="nav-scroller py-1 mb-3 border-bottom">
       <nav class="nav nav-underline justify-content-between">
         <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
-        <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-        <a class="nav-item nav-link link-body-emphasis" href="#">MEMBERS</a>
+        <a class="nav-item nav-link link-body-emphasis" href="musicSearch.php">MUSIC</a>
+        <a class="nav-item nav-link link-body-emphasis" href="membersPage.php">MEMBERS</a>
         <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
         <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a>
       </nav>
@@ -196,10 +192,9 @@ $result = mysqli_query($con, $sql);
       <div class="left">
         <a class="profile">
           <div class="profile-photo">
-            <img src="./images/profile-1.jpg">
+          <img src="./images/profile-1.jpg">
           </div>
           <div class="handle">
-            <h4>Jared Williams</h4>
             <p class="text-muted">
               @<b><?php echo $res_Uname; ?></b>
               <br>
@@ -220,6 +215,54 @@ $result = mysqli_query($con, $sql);
           <a class="menu-item">
             <span><i class="uil uil-bell"></i></span>
             <h3>Notification</h3>
+            <button id="openNotifications"></button>
+            <div id="notificationsModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <!--------------- NOTIFICATION POPUP --------------->
+                <div class="notifications-popup">
+                  <div>
+                    <div class="profile-photo">
+                      <img src="./images/profile-3.jpg">
+                    </div>
+                    <div class="notification-body">
+                      <b>Amy Mitchell</b> commented on your post
+                      <small class="text-muted">1 Minute Ago</small>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="profile-photo">
+                      <img src="./images/profile-4.jpg">
+                    </div>
+                    <div class="notification-body">
+                      <b>Ian Foster</b> and <b>2 Others</b> liked your post
+                      <small class="text-muted">4 Hours Ago</small>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="profile-photo">
+                      <img src="./images/profile-5.jpg">
+                    </div>
+                    <div class="notification-body">
+                      <b>Sarah Smith</b> liked your review
+                      <small class="text-muted">2 Days Ago</small>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="profile-photo">
+                      <img src="./images/profile-11.jpg">
+                    </div>
+                    <div class="notification-body">
+                      <b>Emily Chang</b> commented on your post
+                      <small class="text-muted">1 Week Ago</small>
+                    </div>
+                  </div>
+                </div>
+                <!--------------- END NOTIFICATION POPUP --------------->
+                <ul id="notificationsList">
+                </ul>
+              </div>
+            </div>
           </a>
           <?php echo "             
             <a class='menu-item' href='edit.php?Id=$id'>
@@ -238,11 +281,11 @@ $result = mysqli_query($con, $sql);
       <!----------------- MIDDLE -------------------->
       <div class="middle">
         <form action="posts_backend.php" method="post" class="create-post">
-            <div class="profile-photo">
-                <img src="./images/profile-1.jpg">
-            </div>
-            <input type="text" placeholder="What's are you listening to, Amy ?" name="create-post">
-            <input type="submit" value="Post" class="btn btn-primary">
+          <div class="profile-photo">
+            <img src="./images/profile-1.jpg">
+          </div>
+          <input type="text" placeholder="What are you listening to?" name="create-post">
+          <input type="submit" value="Post" class="btn btn-primary">
         </form>
         <!----------------- FEEDS -------------------->
         <div class="feeds">
@@ -261,11 +304,25 @@ $result = mysqli_query($con, $sql);
               echo '<h3>' . $row["name"] . '</h3>'; // Replace with actual user name if available
               echo '<small>' . $row["date"] . '</small>'; // Format date as required
               echo '</div></div>';
-              echo '<div class="dropdown"><button onclick="myFunction()" class="dropbtn"><i class="uil uil-ellipsis-h"></i></button><div id="myDropdown" class="dropdown-content"><a href="#edit">Edit</a><a href="#delete">Delete</a></div></div></div>';
+              if ($row["user_id"] == $_SESSION['id']) {
+                echo '<div class="dropdown"><button onclick="myFunction(' . $row["id"] . ')" class="dropbtn"><i class="uil uil-ellipsis-h"></i></button><div id="myDropdown' . $row["id"] . '" class="dropdown-content">';
+                echo '<form action="edit_post.php" method="post">
+                      <input type="hidden" name="edit-post" value="edit">
+                      <input type="hidden" name="post-id[]" value="' . $row["id"] . '">
+                      <button type="submit" class="edit">Edit<i class="uil uil-edit"></i></button>
+                      </form>
+                      <form action="posts_backend.php" method="post">
+                      <input type="hidden" name="delete-post" value="delete">
+                      <input type="hidden" name="post-id[]" value="' . $row["id"] . '">
+                      <button type="submit" class="delete">Delete<i class="uil uil-trash-alt"></i></button>
+                      </form>';
+                echo "</div></div>";
+              }
+              echo "</div>";
               //echo '<div class="photo"><img src="./images/feed-'. $row["id"] .'.jpg"></div>'; // Assuming you have post images named as feed-post_id.jpg
               //echo '<div class="liked-by"><p>Liked by <b>'. $row["likes"] .' others</b></p></div>'; // Replace with actual likes data if available
               echo '<br>';
-              echo '<div class="caption"><p>'. $row["content"] . '</p></div>'; // Replace with actual user name if available
+              echo '<div class="caption"><p>' . $row["content"] . '</p></div>'; // Replace with actual user name if available
               echo '<div class="action-buttons"><div class="interaction-buttons"><span><i class="uil uil-heart"></i></span><span><i class="uil uil-comment-dots"></i></span></div><div class="bookmark"><span><i class="uil uil-bookmark-full"></i></span></div></div>';
               echo '<div class="comments text-muted">View all comments</div></div>'; // Replace with actual comments data if available
             }
@@ -296,6 +353,42 @@ $result = mysqli_query($con, $sql);
       </div>
       <!----------------- END OF MIDDLE -------------------->
   </main>
+
+  <script>
+    // Get the modal element
+    var modal = document.getElementById('notificationsModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById('openNotifications');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName('close')[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = 'block';
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = 'none';
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    // Function to add notifications to the list
+    function addNotification(message) {
+      var notificationsList = document.getElementById('notificationsList');
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(message));
+      notificationsList.appendChild(li);
+    }
+  </script>
 
 </body>
 
@@ -633,4 +726,60 @@ $result = mysqli_query($con, $sql);
   .show {
     display: block;
   }
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 28%;
+    position: absolute;
+    left: 70%;
+    top: 20%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
 </style>
+<script>
+  function myFunction(id) {
+    document.getElementById("myDropdown" + id).classList.toggle("show");
+  }
+</script>

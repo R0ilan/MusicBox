@@ -153,8 +153,8 @@ function getGreeting(){
     <div class="nav-scroller py-1 mb-3 border-bottom">
       <nav class="nav nav-underline justify-content-between">
         <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
-        <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-        <a class="nav-item nav-link link-body-emphasis" href="#">MEMBERS</a>
+        <a class="nav-item nav-link link-body-emphasis" href="musicSearch.php">MUSIC</a>
+        <a class="nav-item nav-link link-body-emphasis" href="membersPage.php">MEMBERS</a>
         <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
         <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a>
       </nav>
@@ -164,34 +164,34 @@ function getGreeting(){
     <main class="container">
         <div class="members">
             <!------- Member 1 ----------->
-            <div class="members-card">
+            <div class="members-card1">
                 <img src="./images/profile-3.jpg" alt="Avatar">
                 <h2>Amy Mitchell</h2>
-                <p>Role: Role of Member 1</p>
+                <p>Role: Avid Listener</p>
             </div>
             <!------- Member 2 ----------->
-            <div class="members-card">
-                <img src="./images/profile-8.jpg">
+            <div class="members-card2">
+                <img src="./images/profile-4.jpg">
                 <h2>Ian Foster</h2>
-                <p>Role: Role of Member 1</p>
+                <p>Role: Indie Artist</p>
             </div>
             <!------- Member 3 ----------->
-            <div class="members-card">
+            <div class="members-card3">
                 <img src="./images/profile-5.jpg">
-                <h2>Lisa Rodriguez</h2>
-                <p>Role: Role of Member 1</p>
+                <h2>Sarah Smith</h2>
+                <p>Role: Music Educator</p>
             </div>
             <!------- Member 4 ----------->
-            <div class="members-card">
+            <div class="members-card4">
                 <img src="./images/profile-18.jpg">
                 <h2>Sarah Lewis</h2>
-                <p>Role: Role of Member 1</p>
+                <p>Role: Avid Listener</p>
             </div>
             <!------- Member 5 ----------->
-            <div class="members-card">
+            <div class="members-card5">
                 <img src="./images/profile-11.jpg">
                 <h2>Emily Chang</h2>
-                <p>Role: Role of Member 1</p>
+                <p>Role: Student Musician</p>
             </div>
 
         </div>
@@ -283,7 +283,54 @@ function getGreeting(){
     display: block !important;
   }
 
-.members-card img {
+.members-card1 img {
   border-radius: 50%;
 }
+ .members-card1 {
+  position: absolute;
+  top: 150px;
+  left: 200px;
+  font-size: 18px;
+}
+
+.members-card2 img {
+  border-radius: 50%;
+}
+ .members-card2 {
+  position: absolute;
+  top: 150px;
+  left: 600px;
+  font-size: 18px;
+}
+
+.members-card3 img {
+  border-radius: 50%;
+}
+ .members-card3 {
+  position: absolute;
+  top: 150px;
+  left: 1000px;
+  font-size: 18px;
+}
+
+.members-card4 img {
+  border-radius: 50%;
+}
+ .members-card4 {
+  position: absolute;
+  top: 425px;
+  left: 200px;
+  font-size: 18px;
+}
+
+.members-card5 img {
+  border-radius: 50%;
+}
+ .members-card5 {
+  position: absolute;
+  top: 425px;
+  left: 600px;
+  font-size: 18px;
+}
+
 </style>

@@ -90,9 +90,9 @@ function getGreeting()
                         li.appendChild(a);
 
                         let img = document.createElement('img');
-                      img.setAttribute('src', 'images/profile-4.jpg'); // Replace with the URL of the friend's profile image
-                      img.setAttribute('class', 'profile-image');
-                      a.appendChild(img);
+                        img.setAttribute('src', 'images/profile-4.jpg'); // Replace with the URL of the friend's profile image
+                        img.setAttribute('class', 'profile-image');
+                        a.appendChild(img);
 
                         let div = document.createElement('div');
                         div.setAttribute('class', 'col-lg-8');
@@ -119,23 +119,25 @@ function getGreeting()
     <link href="css/blog.rtl.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-      <script>
+    <script>
         jQuery(document).ready(function($) {
-          $('#getReviewsByUser > button').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-              url: 'get_reviews_by_user.php',
-              type: 'post',
-              data: $('#getReviewsByUser').serialize(),
-              dataType: 'json',
-              success: function(response) {
-                  $('#getReviewsByUserResult').html(JSON.stringify(response));
-              },
-              error: () => { console.log('failed'); }
-            })
-          });
+            $('#getReviewsByUser > button').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'get_reviews_by_user.php',
+                    type: 'post',
+                    data: $('#getReviewsByUser').serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#getReviewsByUserResult').html(JSON.stringify(response));
+                    },
+                    error: () => {
+                        console.log('failed');
+                    }
+                })
+            });
         });
-      </script>
+    </script>
 </head>
 
 <body>
@@ -213,21 +215,21 @@ function getGreeting()
     </svg>
 
     <div class="container">
-    <header class="border-bottom lh-1 py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-4 pt-1">
-          <div class="dropdown">
-          </div>
-        </div>
-        <div class="col-4 text-center">
-          <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
-        </div>
-        <div class="col-4 d-flex justify-content-end align-items-center">
-          <a class="link-secondary" href="#" aria-label="">
-          </a>
-        </div>
-      </div>
-    </header>
+        <header class="border-bottom lh-1 py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <div class="dropdown">
+                    </div>
+                </div>
+                <div class="col-4 text-center">
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">MUSIC BOX</a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <a class="link-secondary" href="#" aria-label="">
+                    </a>
+                </div>
+            </div>
+        </header>
 
         <div class="nav-scroller py-1 mb-3 border-bottom">
             <nav class="nav nav-underline justify-content-between">
@@ -247,42 +249,16 @@ function getGreeting()
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
+                        <img src="./images/profile-3.jpg">
                     </div>
                     <div class="handle">
                         <p class="text-muted">
-                            @<b><?php echo $res_Uname; ?></b>
+                            @<b>amitch</b>
                             <br>
-                            <b><?php echo $res_role; ?></b>
+                            <b>Avid Listener</b>
                         </p>
                     </div>
                 </a>
-                <!----------------- SIDEBAR -------------------->
-                <div class="sidebar">
-                    <a class="menu-item" href="../static/home.php">
-                        <span><i class="uil uil-home"></i></span>
-                        <h3>Home</h3>
-                    </a>
-                    <a class="menu-item" href="../static/genProfileSignedIn.php">
-                        <span><i class="uil uil-compass"></i></span>
-                        <h3>Profile</h3>
-                    </a>
-                    <a class="menu-item">
-                        <span><i class="uil uil-bell"></i></span>
-                        <h3>Notification</h3>
-                    </a>
-                    <?php echo"             
-                    <a class='menu-item' href='edit.php?Id=$id'>
-                        <span><i class='uil uil-setting'></i></span>                        
-                        <h3>Edit Profile</h3>
-                    </a>";
-                    ?>
-                    <a class="menu-item" href="../static/logout.php">
-                        <span><i class="uil uil-palette"></i></span>
-                        <h3>Log Out</h3>
-                    </a>
-                </div>
-                <!----------------- END OF SIDEBAR -------------------->
             </div>
 
             <!----------------- MIDDLE -------------------->
@@ -294,7 +270,7 @@ function getGreeting()
                         </div>
                     </div>
                 </div>
-                    <br>
+                <br>
                 <div class="row">
                     <div class="col-md border rounded">
                         Favorites
@@ -318,16 +294,10 @@ function getGreeting()
             <!----------------- END OF MIDDLE -------------------->
             <!----------------- RIGHT -------------------->
             <div class="right">
-                <div class="friends">
-                    <h4>Friends</h4>
-                    <ul class="list-unstyled" id="friendList">
-                      <!--Filled dynamically using script-->
-                    </ul>
-                </div>
                 <div class="reviews">
                     <h4>Reviews</h4>
                     <form id="getReviewsByUser" method="post">
-                      <button type="submit">Show Reviews</button>
+                        <button type="submit">Show Reviews</button>
                     </form>
                     <p id="getReviewsByUserResult"></p>
                 </div>
@@ -526,11 +496,11 @@ function getGreeting()
     }
 
     main .container .left .profile h4 {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .profile-photo {
-        width: 2.7rem;
+        width: 4.7rem;
         aspect-ratio: 1/1;
         border-radius: 50%;
         overflow: hidden;
@@ -541,67 +511,6 @@ function getGreeting()
         width: 100%;
     }
 
-    /* =============== Sidebar ============== */
-    .left .sidebar {
-        margin-top: 1rem;
-        background: var(--color-primary);
-        border-radius: var(--card-border-radius);
-    }
-
-    .left .sidebar .menu-item {
-        display: flex;
-        align-items: center;
-        height: 4rem;
-        cursor: pointer;
-        transition: all 300ms ease;
-        position: relative;
-    }
-
-    .left .sidebar .menu-item:hover {
-        background: var(--color-light);
-    }
-
-    .left .sidebar i {
-        font-size: 1.4rem;
-        color: var(--color-grey);
-        margin-left: 2rem;
-        position: relative;
-    }
-
-    .left .sidebar {
-        background: var(--color-light);
-    }
-
-    .left .sidebar i,
-    .left .sidebar h3 {
-        margin-left: 1.5rem;
-        font-size: 1.4rem;
-        color: var(--color-primary);
-    }
-
-    .left .sidebar .active::before {
-        content: "";
-        display: block;
-        width: 0.5rem;
-        height: 100%;
-        position: absolute;
-        background: var(--color-primary);
-    }
-
-    .left .btn {
-        margin-top: 1rem;
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        margin-bottom: 0.7rem;
-    }
-
-    /* =============== Feeds ============== */
-    .middle .row {
-        margin-top: 1rem;
-        position: relative;
-    }
-
     /* =============== Right ============== */
     main .container .right .friends {
         height: max-content;
@@ -610,26 +519,14 @@ function getGreeting()
         bottom: 0;
     }
 
-    /* =============== Friend Requests ============== */
-    .right .friends {
-        margin-top: 1rem;
-    }
-
-    .right .friends h4 {
-        margin: 1rem 0;
-        top: var(--sticky-top-right);
-
-    }
-
     /* =============== Reviews ============== */
     .right .reviews {
-        margin-top: 1rem;
+        margin-top: 0;
     }
 
     .right .reviews h4 {
-        margin: 1rem 0;
+        margin: 0;
         top: var(--sticky-top-right);
-
     }
 
     .right .reviews {
