@@ -229,6 +229,38 @@ if (!isset($_SESSION['id'])) {
       </label>
     </div>
 
+    <div class="row mb-2"> <!-- clicking on each image will lead to the artists profile page-->
+        <div id="ftArtists" class="col-md border rounded">
+            <div class="col-auto d-none d-lg-block">
+              <div id="content" class="bodySec">
+                <div class="container text-center">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <img src="https://i.scdn.co/image/ab67616d0000b27332f5fec7a879ed6ef28f0dfd" width="100px" height="150px">
+                      <p>Song About Me</p>
+                    </div>
+                    <div class="col">
+                      <img src="https://i.scdn.co/image/ab67616d0000b273cb086aae0086e309adf1ffd2" width="100px" height="150px">
+                      <p>Vampire</p>
+                    </div>
+                    <div class="col">
+                      <img src="https://i.scdn.co/image/ab67616d0000b273001d5706fddc72561f6488af" width="100px" height="150px">
+                      <p>Houdini</p>
+                    </div>
+                    <div class="col">
+                      <img src="https://i.scdn.co/image/ab67616d0000b273ed317ec13d3de9e01fb99c9e" width="100px" height="150px">
+                      <p>What Was I Made For? [From The Motion Picture "Barbie"]</p>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <p class="ft">Featured Tracks</p>
+              </div>
+            </div>
+          
+        </div>
+  </div>
+
     <div class="row mb-2">
       <div class="border rounded">
         <!-- Backend results from the search should be shown here -->
