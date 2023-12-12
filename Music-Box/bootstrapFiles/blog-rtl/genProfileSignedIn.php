@@ -90,9 +90,26 @@ function getGreeting()
                         li.appendChild(a);
 
                         let img = document.createElement('img');
-                      img.setAttribute('src', 'images/profile-4.jpg'); // Replace with the URL of the friend's profile image
-                      img.setAttribute('class', 'profile-image');
-                      a.appendChild(img);
+
+                        // Map user ID to pre-made profile images (for now)
+                        let profileImagePath = 'images/profile-1.jpg'; // Use this as default
+
+                        let profileImagePathMap = {
+                            'Amy Mitchell': './images/profile-3.jpg',
+                            'Ian Foster': './images/profile-4.jpg',
+                            'Sarah Smith': './images/profile-5.jpg',
+                            'Sarah Lewis': './images/profile-18.jpg',
+                            'Emily Chang': './images/profile-11.jpg'
+                        };
+
+                        if (friend['name'] in profileImagePathMap)
+                        {
+                            profileImagePath = profileImagePathMap[friend['name']];
+                        }
+
+                        img.setAttribute('src', profileImagePath); // Replace with the URL of the friend's profile image
+                        img.setAttribute('class', 'profile-image');
+                        a.appendChild(img);
 
                         let div = document.createElement('div');
                         div.setAttribute('class', 'col-lg-8');
