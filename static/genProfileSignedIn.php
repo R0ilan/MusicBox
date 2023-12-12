@@ -19,6 +19,8 @@ if (!isset($_SESSION['id'])) {
 // Fetch user details based on the user's ID
 $id = $_SESSION['id'];
 $query = mysqli_query($con, "SELECT * FROM USERS WHERE id = $id");
+$query2 = mysqli_query($con, "SELECT id, username FROM USERS");
+$get_result = mysqli_fetch_assoc($query2);
 
 // Initialize variables
 $res_Uname = "";
@@ -90,9 +92,9 @@ function getGreeting()
                         li.appendChild(a);
 
                         let img = document.createElement('img');
-                      img.setAttribute('src', 'images/profile-4.jpg'); // Replace with the URL of the friend's profile image
-                      img.setAttribute('class', 'profile-image');
-                      a.appendChild(img);
+                        img.setAttribute('src', 'images/profile-' + friend["id"] + '.jpg'); // Replace with the URL of the friend's profile image
+                        img.setAttribute('class', 'profile-image');
+                        a.appendChild(img);
 
                         let div = document.createElement('div');
                         div.setAttribute('class', 'col-lg-8');
