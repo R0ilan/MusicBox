@@ -19,6 +19,8 @@ if (!isset($_SESSION['id'])) {
 // Fetch user details based on the user's ID
 $id = $_SESSION['id'];
 $query = mysqli_query($con, "SELECT * FROM USERS WHERE id = $id");
+$query2 = mysqli_query($con, "SELECT id, username FROM USERS");
+$get_result = mysqli_fetch_assoc($query2);
 
 // Initialize variables
 $res_Uname = "";
