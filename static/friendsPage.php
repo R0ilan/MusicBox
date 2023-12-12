@@ -271,25 +271,6 @@ function getGreeting()
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-md border rounded">
-                        Favorites
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!----------------- END OF MIDDLE -------------------->
             <!----------------- RIGHT -------------------->

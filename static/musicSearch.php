@@ -4,7 +4,7 @@ session_start(); // Ensure session is started
 // Check if user is authenticated
 if (!isset($_SESSION['valid'])) {
   header("Location: login.php"); // Redirect to login.php since index.php doesn't exist
-  exit;
+   exit;
 }
 
 include "dbconfig.php"; // Include database configuration
@@ -13,7 +13,7 @@ $con = mysqli_connect($server, $login, $password, $dbname); // Establish a datab
 // Check if ID is set in the session, redirect if not
 if (!isset($_SESSION['id'])) {
   header("Location: login.php");
-  exit;
+   exit;
 }
 
 ?>
@@ -21,34 +21,34 @@ if (!isset($_SESSION['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="js/color-modes.js"></script>
+   <script src="js/color-modes.js"></script>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.118.2">
-  <title>Music Box Bootstrap</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+   <meta name="generator" content="Hugo 0.118.2">
+   <title>Music Box Bootstrap</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
+   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog-rtl/">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-  <link href="css/bootstrap.rtl.min.css" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="css/blog.rtl.css" rel="stylesheet">
-  <!--JQuery-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script>
+   <link href="css/bootstrap.rtl.min.css" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="https://fonts.googleapis.com/css?family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="css/blog.rtl.css" rel="stylesheet">
+   <!--JQuery-->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <script>
     jQuery(document).ready(function($) {
       $('[name="searchInput"]').on("submit", function(e) {
         e.preventDefault();
         $.ajax({
           url: 'search_tracks.php',
           type: 'post',
-          data: $('[name="searchInput"]').serialize(),
+          data: $('[name="searchInput"]').serialize() + '&' + $('#checkbox1').serialize(),
           dataType: 'json',
           success: function(response) {
             // First clear current results
@@ -221,19 +221,50 @@ if (!isset($_SESSION['id'])) {
       </div>
 
     </div>
-    <div class="col-4 pt-1">
-      <input class="checkbox" id="checkbox1" type="checkbox" name="search_explicit">
-      <label for="checkbox1" class="checkbox-label">
-        <span class="on">Explicit on.</span>
-        <span class="off">Explicit off.</span>
-      </label>
+
+    <div class="row mb-2"> <!-- clicking on each image will lead to the artists profile page-->
+      <div id="ftArtists">
+        <div class="col-auto d-none d-lg-block">
+          <div id="content" class="bodySec">
+            <div class="container text-center">
+              <div class="row align-items-center">
+                <p class="ft">Featured Tracks</p>
+                <div class="col">
+                  <img src="https://i.scdn.co/image/ab67616d0000b27332f5fec7a879ed6ef28f0dfd" width="150px" height="150px">
+                  <p>Song About Me</p>
+                </div>
+                <div class="col">
+                  <img src="https://i.scdn.co/image/ab67616d0000b273cb086aae0086e309adf1ffd2" width="100px" height="150px">
+                  <p>Vampire</p>
+                </div>
+                <div class="col">
+                  <img src="https://i.scdn.co/image/ab67616d0000b273001d5706fddc72561f6488af" width="100px" height="150px">
+                  <p>Houdini</p>
+                </div>
+                <div class="col">
+                  <img src="https://i.scdn.co/image/ab67616d0000b273ed317ec13d3de9e01fb99c9e" width="100px" height="150px">
+                  <p>What Was I Made For? [From The Motion Picture "Barbie"]</p>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="row mb-2">
       <div class="border rounded">
-        <!-- Backend results from the search should be shown here -->
-        <div class="results">
-
+        <div class="col-auto d-none d-lg-block">
+          <div id="content" class="bodySec">
+            <div class="container text-center">
+              <div class="row align-items-center">
+                <!-- Backend results from the search should be shown here -->
+                <div class="results">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -469,7 +500,6 @@ if (!isset($_SESSION['id'])) {
     margin: auto;
     position: relative;
     box-shadow: 0 0 0 2px #dddddd;
-
     .on {
       display: block;
       position: absolute;
@@ -536,8 +566,10 @@ if (!isset($_SESSION['id'])) {
   }
 
   img {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
+    border-radius: 10%;
+
   }
 
   #profImg {

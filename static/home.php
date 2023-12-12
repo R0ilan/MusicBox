@@ -285,7 +285,7 @@ $result = mysqli_query($con, $sql);
             <img src="./images/profile-1.jpg">
           </div>
           <input type="text" placeholder="What are you listening to?" name="create-post">
-          <input type="submit" value="Post" class="btn btn-primary">
+          <input type="submit" value="Post" class="btn btn-bd-primary">
         </form>
         <!----------------- FEEDS -------------------->
         <div class="feeds">
@@ -539,7 +539,7 @@ $result = mysqli_query($con, $sql);
   }
 
   .profile-photo {
-    width: 2.7rem;
+    width: 3.7rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
@@ -561,7 +561,6 @@ $result = mysqli_query($con, $sql);
     display: flex;
     align-items: center;
     height: 4rem;
-    cursor: pointer;
     transition: all 300ms ease;
     position: relative;
   }
@@ -572,7 +571,7 @@ $result = mysqli_query($con, $sql);
 
   .left .sidebar i {
     font-size: 1.4rem;
-    color: var(--color-grey);
+    color: red;
     margin-left: 2rem;
     position: relative;
   }
@@ -585,7 +584,7 @@ $result = mysqli_query($con, $sql);
   .left .sidebar h3 {
     margin-left: 1.5rem;
     font-size: 1.4rem;
-    color: var(--color-primary);
+    color: #202976;
   }
 
   .left .sidebar .active::before {

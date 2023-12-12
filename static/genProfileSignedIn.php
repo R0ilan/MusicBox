@@ -90,9 +90,26 @@ function getGreeting()
                         li.appendChild(a);
 
                         let img = document.createElement('img');
-                      img.setAttribute('src', 'images/profile-4.jpg'); // Replace with the URL of the friend's profile image
-                      img.setAttribute('class', 'profile-image');
-                      a.appendChild(img);
+                      
+                         // Map user ID to pre-made profile images (for now)
+                         let profileImagePath = 'images/profile-1.jpg'; // Use this as default
+
+                         let profileImagePathMap = {
+                             'Amy Mitchell': './images/profile-3.jpg',
+                             'Ian Foster': './images/profile-4.jpg',
+                             'Sarah Smith': './images/profile-5.jpg',
+                             'Sarah Lewis': './images/profile-18.jpg',
+                             'Emily Chang': './images/profile-11.jpg'
+                         };
+
+                         if (friend['name'] in profileImagePathMap)
+                         {
+                             profileImagePath = profileImagePathMap[friend['name']];
+                         }
+
+                         img.setAttribute('src', profileImagePath); // Replace with the URL of the friend's profile image
+                         img.setAttribute('class', 'profile-image');
+                         a.appendChild(img);
 
                         let div = document.createElement('div');
                         div.setAttribute('class', 'col-lg-8');
@@ -232,8 +249,8 @@ function getGreeting()
         <div class="nav-scroller py-1 mb-3 border-bottom">
             <nav class="nav nav-underline justify-content-between">
                 <a class="nav-item nav-link link-body-emphasis" href="home.php">HOME</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">MUSIC</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">MEMBERS</a>
+                <a class="nav-item nav-link link-body-emphasis" href="musicSearch.php">MUSIC</a>
+                <a class="nav-item nav-link link-body-emphasis" href="membersPage.php">MEMBERS</a>
                 <a class="nav-item nav-link link-body-emphasis" href="faq.php">FAQ</a>
                 <a class="nav-item nav-link link-body-emphasis" href="about.php">ABOUT</a>
             </nav>
@@ -293,25 +310,12 @@ function getGreeting()
                         <div id="recentlyPlayedTracks" class="row align-items">
                         </div>
                     </div>
-                </div>
-                    <br>
-                <div class="row">
-                    <div class="col-md border rounded">
-                        Favorites
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                            <div class="col">
-                                <img src="" width="100px" height="150px">
-                            </div>
-                        </div>
+                    <div class="reviews">
+                      <h4>Reviews</h4>
+                      <form id="getReviewsByUser" method="post">
+                        <button type="submit">Show Reviews</button>
+                      </form>
+                      <p id="getReviewsByUserResult"></p>
                     </div>
                 </div>
             </div>
@@ -323,13 +327,6 @@ function getGreeting()
                     <ul class="list-unstyled" id="friendList">
                       <!--Filled dynamically using script-->
                     </ul>
-                </div>
-                <div class="reviews">
-                    <h4>Reviews</h4>
-                    <form id="getReviewsByUser" method="post">
-                      <button type="submit">Show Reviews</button>
-                    </form>
-                    <p id="getReviewsByUserResult"></p>
                 </div>
             </div>
             <!----------------- END OF RIGHT -------------------->
@@ -530,16 +527,16 @@ function getGreeting()
     }
 
     .profile-photo {
-        width: 2.7rem;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        overflow: hidden;
-    }
+    width: 3.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+  }
 
-    img {
-        display: block;
-        width: 100%;
-    }
+  img {
+    display: block;
+    width: 100%;
+  }
 
     /* =============== Sidebar ============== */
     .left .sidebar {
@@ -573,11 +570,11 @@ function getGreeting()
     }
 
     .left .sidebar i,
-    .left .sidebar h3 {
-        margin-left: 1.5rem;
-        font-size: 1.4rem;
-        color: var(--color-primary);
-    }
+  .left .sidebar h3 {
+    margin-left: 1.5rem;
+    font-size: 1.4rem;
+    color: #202976;
+  }
 
     .left .sidebar .active::before {
         content: "";
@@ -602,6 +599,19 @@ function getGreeting()
         position: relative;
     }
 
+    /* =============== Reviews ============== */
+      .middle .row .reviews {
+        margin-top: 1rem;
+        background: var(--color-white);
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        margin-bottom: 0.7rem;
+        width:
+    }
+
+    .middle .row .reviews h4 {
+        margin: 1rem 0;
+    }
     /* =============== Right ============== */
     main .container .right .friends {
         height: max-content;
@@ -619,23 +629,5 @@ function getGreeting()
         margin: 1rem 0;
         top: var(--sticky-top-right);
 
-    }
-
-    /* =============== Reviews ============== */
-    .right .reviews {
-        margin-top: 1rem;
-    }
-
-    .right .reviews h4 {
-        margin: 1rem 0;
-        top: var(--sticky-top-right);
-
-    }
-
-    .right .reviews {
-        background: var(--color-white);
-        padding: var(--card-padding);
-        border-radius: var(--card-border-radius);
-        margin-bottom: 0.7rem;
     }
 </style>
